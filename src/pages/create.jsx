@@ -25,6 +25,10 @@ export default function Create() {
     let [multiple, setMultiple] = useState(false);
     let [type, setType] = useState("multipleChoice");
 
+    const clear = () => { //to clear values in setForm 
+        setForm({ name: " ", description: " ", question: " " });
+    }
+
     React.useEffect(() => {
         if (!user && !loadingUser) return window.location.href = '/login';
         if (!user || loadingUser) return;
@@ -136,23 +140,12 @@ export default function Create() {
             await navigator.geolocation.getCurrentPosition(async function(pos){
                 values.location = new firebase.firestore.GeoPoint(pos.coords.latitude+Math.random()*0.001, pos.coords.longitude+Math.random()*0.001);
                 values.author = await getUserRef(user.uid);
+                console.log(values.author)
 
                 try{
                     console.log(values);
-                    await addDoc('polls', values);
-                    
-                    toast({
-                        title: "Created",
-                        description: "Success your Poll was created",
-                        status: "success",
-                        duration: 5000,
-                        isClosable: true,
-                    });
-
-                    setForm({name: "", description: "", question: ""});
                     setAnswers([]);
                     //console.log(values);
-        
                     setLoading(false);
                 }
                 catch (error){
@@ -174,9 +167,19 @@ export default function Create() {
                     duration: 5000,
                     isClosable: true
                 })
-        
             })
         }
+
+        toast({
+          title: "Created",
+          description: "Success your Poll was created",
+          status: "success",
+          duration: 5000,
+          isClosable: true,
+        });
+        clear();
+
+
     }
 
     return (
@@ -233,6 +236,7 @@ export default function Create() {
                 )}
 
                 <Button colorScheme="green" onClick = {addChoice} disabled = {loading || type === "text"}>Add Choice</Button> &nbsp;
+                
                 <Button colorScheme="blue" onClick = {submit} disabled = {loading}>Submit</Button>
                 <Text m={4} mb={12}>Your location will be collected when you submit.</Text>
             </Container>
