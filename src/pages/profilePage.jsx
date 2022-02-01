@@ -47,8 +47,8 @@ export default function Profile(props){
     const toast = useToast()
 
     React.useEffect(() => {
-        //if (!user && !loadingUser) return window.location.href = '/login';
-        //if (!user || loadingUser) return;
+        if (!user && !loadingUser) return window.location.href = '/login';
+        if (!user || loadingUser) return;
 
         async function checkUserDoc() {
             try{

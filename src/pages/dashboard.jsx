@@ -19,11 +19,12 @@ export default function Dashboard() {
     const [polls, setPolls] = React.useState();
     
     React.useEffect(() => {
-        //if (!user && !loadingUser) return window.location.href = '/login';
+        if (!user && !loadingUser) return window.location.href = '/login';
         if (!user) return;
 
         async function checkUserDoc() {
             const userData = await getDoc('users', user.uid);
+            
             if (!userData || loadingUser) {
                 await addDoc('users', {
                     displayName: "",
@@ -31,9 +32,10 @@ export default function Dashboard() {
                     logo: ""
                 }, user.uid);
             }
+             
         }
         checkUserDoc();
-
+        
         async function getPolls() {
             const userDocs = await getUserDocs('polls', user.uid);
             setPolls(userDocs);

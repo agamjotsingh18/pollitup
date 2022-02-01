@@ -4,8 +4,8 @@ import initFirebase from '../lib/firebase';
 import firebase from 'firebase/app';
 import 'firebase/auth';
 import { useAuth } from '../lib/auth';
-//import { addDoc, getDoc } from '../lib/db';
-
+import { addDoc, getDoc } from '../lib/db';
+import Loading_page from './Loading_page';
 import { RegisterForm } from "../components/registerForm";
 import { DividerWithText } from '../components/dividerWithText';
 import { FaGoogle } from 'react-icons/fa';
@@ -62,9 +62,19 @@ export default function RegisterPage() {
 
   async function signInWithGoogle() {
     const provider = new firebase.auth.GoogleAuthProvider();
-    await firebase.auth().signInWithRedirect(provider)
-    .then((u) => { // u.user.uid
-      window.location.href = '/';
+    provider.setCustomParameters({prompt:'select_account'});
+    await firebase.auth().signInWithPopup(provider)
+    .then(async (u) => {  
+      const existingUser = await getDoc('users', u.user.uid);
+      if (!existingUser) {
+        await addDoc('users', {
+          displayName: u.user.displayName,
+          email: u.user.email,
+          logo: u.user.photoURL,
+        }, u.user.uid);
+      }
+      window.location.href = '/'; 
+  
     })
     .catch(function(err) {
       toast({
@@ -121,5 +131,5 @@ export default function RegisterPage() {
   );
   
   // Prevents flashing page when logged in
-  return (<></>); // TODO: add loading page
+  return (<Loading_page />);  
 }
