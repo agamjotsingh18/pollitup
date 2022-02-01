@@ -1,5 +1,7 @@
 import React from 'react';
 import { Link as RLink } from 'react-router-dom';
+import ColorModeToggle from './colorModeToggle';
+
 
 import {
   Box,
@@ -32,7 +34,7 @@ export default function NavbarComponent() {
 
       {/* Toggle */}
       <Toggle toggle={toggle} isOpen={isOpen}/>
-
+          
       {/* Links */}
       <Box
         display={{ base: isOpen ? "block" : "none", md: "block" }}
@@ -52,6 +54,8 @@ export default function NavbarComponent() {
           <MenuItem to={user && !loadingUser ? "/logout" : "/login"} type="button">
             {user && !loadingUser ? "Logout" : "Login/Register"}
           </MenuItem>
+        <ColorModeToggle color={useColorModeValue("brand.700", "white")}/>
+
         </Stack>
       </Box>
     </Flex>
