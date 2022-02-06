@@ -6,10 +6,10 @@ import {
   Stack,
   Text,
   Link as ChakraLink,
-  useColorModeValue,
+ 
 } from '@chakra-ui/react';
 
-import ColorModeToggle from './colorModeToggle';
+
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGithub } from '@fortawesome/free-brands-svg-icons';
@@ -28,7 +28,7 @@ export default function FooterComponent() {
         </Stack>
       </Flex>
       <Stack m={2} spacing={4} direction="row" justify="center" align="center">
-        <ColorModeToggle color={useColorModeValue("brand.700", "white")}/>
+        
         <ChakraLink href="https://github.com/agamjotsingh18/pollitup.github.io" target="_blank">
           <FontAwesomeIcon icon={faGithub}/>
         </ChakraLink>
