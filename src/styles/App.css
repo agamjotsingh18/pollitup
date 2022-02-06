@@ -1,9 +1,17 @@
-@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700&display=swap");
+
+:root {
+  --blue: #40669c;
+  --light-blue: #c6e7fc;
+  --dark-blue: #2a4365;
+  --darker-blue: #062653;
+}
+
 html,
 body {
   padding: 0;
   margin: 0;
-  font-family: 'Manrope', sans-serif;
+  font-family: "Manrope", sans-serif;
 }
 
 a {
@@ -40,7 +48,7 @@ a {
   transition: opacity 150ms ease-out;
 }
 
-.content{
+.content {
   position: absolute;
   top: 95px;
   padding-bottom: 77.5px;
@@ -53,6 +61,38 @@ a {
   border: 2.5px solid lightblue;
 }
 
-.profile-pic:hover{
+.profile-pic:hover {
   cursor: pointer;
+}
+
+::-webkit-scrollbar {
+  width: 18px;
+}
+
+::-webkit-scrollbar-track {
+  margin-top: 18px;
+  border-radius: 100vw;
+  background: var(--light-blue);
+}
+
+::-webkit-scrollbar-thumb {
+  border: 3px solid var(--light-blue);
+  border-radius: 100vw;
+  background: var(--dark-blue);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--blue);
+}
+
+@supports (scrollbar-color: red blue) {
+  * {
+    scrollbar-color: var(--darker-blue) var(--light-blue);
+  }
+}
+
+@media (max-width: 768px) {
+  ::-webkit-scrollbar-track {
+    margin-top: 0;
+  }
 }
