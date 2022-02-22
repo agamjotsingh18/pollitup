@@ -2,7 +2,7 @@ import mongoose from 'mongoose'
 const { Schema } = mongoose;
 
 const pollSchema = new Schema({
-    title: {
+    name: {
         type: String,
         required: true
     },
@@ -10,6 +10,14 @@ const pollSchema = new Schema({
         type: String,
         required: true
     },  
+    question :{
+        type: String,
+        required: true
+    },
+    type:{
+        type: String,
+        required: true
+    },
     upvotes: {
         type: Number,
         default: 0
