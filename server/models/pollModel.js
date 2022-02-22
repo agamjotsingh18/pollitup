@@ -18,6 +18,11 @@ const pollSchema = new Schema({
         type: String,
         required: true
     },
+
+    location:{
+        type: String,
+        required: true
+    },
     upvotes: {
         type: Number,
         default: 0
