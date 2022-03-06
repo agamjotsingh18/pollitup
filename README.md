@@ -1,4 +1,7 @@
 # Poll It Up ~ A community polling app with unlimited potential
+<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
+[![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors-)
+<!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 <img src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=for-the-badge" alt="PRs Welcome" /> <a href="https://github.com/agamjotsingh18/pollitup/pulls" target="_blank"><img alt="GitHub pull requests" src="https://img.shields.io/github/issues-pr/agamjotsingh18/pollitup?style=for-the-badge" /></a> <a href="https://github.com/agamjotsingh18/pollitup/issues" target="_blank"><img alt="GitHub issues" src="https://img.shields.io/github/issues/agamjotsingh18/pollitup?style=for-the-badge" /></a> <a href="https://github.com/agamjotsingh18/pollitup/blob/master/README.md#contributors-" target="_blank"></a>
 
@@ -104,6 +107,19 @@ See the open issues for a full list of proposed features (and known issues).<br>
 ## Contributors:
 ### The Wonderful People Who Contributed Here
 <table>
+<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+<!-- prettier-ignore-start -->
+<!-- markdownlint-disable -->
+<table>
+  <tr>
+    <td align="center"><a href="https://www.linkedin.com/in/agamjot-singh/"><img src="https://avatars.githubusercontent.com/u/70067726?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Agamjot Singh</b></sub></a><br /><a href="https://github.com/agamjotsingh18/pollitup/commits?author=agamjotsingh18" title="Documentation">📖</a></td>
+  </tr>
+</table>
+
+<!-- markdownlint-restore -->
+<!-- prettier-ignore-end -->
+
+<!-- ALL-CONTRIBUTORS-LIST:END -->
 	<tr>
 		<td>
 			<a href="https://github.com/agamjotsingh18/pollitup/graphs/contributors">
