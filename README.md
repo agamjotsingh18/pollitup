@@ -120,17 +120,6 @@ See the open issues for a full list of proposed features (and known issues).<br>
 <!-- prettier-ignore-end -->
 
 <!-- ALL-CONTRIBUTORS-LIST:END -->
-	<tr>
-		<td>
-			<a href="https://github.com/agamjotsingh18/pollitup/graphs/contributors">
-  				<img src="https://contrib.rocks/image?repo=agamjotsingh18/pollitup" />
-			</a>
-		</td>
-	</tr>
-</table>
-
-
-
 <hr>
 <p align="left">
 <h3 align="left">Contact:</h3>
