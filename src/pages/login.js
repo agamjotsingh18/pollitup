@@ -5,7 +5,7 @@ import firebase from 'firebase/app';
 import 'firebase/auth';
 import { useAuth } from '../lib/auth';
 import { addDoc, getDoc } from '../lib/db';
-
+import Loading_page from './Loading_page';
 import { LoginForm } from "../components/loginForm";
 import { DividerWithText } from '../components/dividerWithText';
 import { FaGoogle } from 'react-icons/fa';
@@ -52,15 +52,16 @@ export default function LoginPage() {
 
   async function signInWithGoogle() {
     const provider = new firebase.auth.GoogleAuthProvider();
-    await firebase.auth().signInWithRedirect(provider)
+    provider.setCustomParameters({prompt:'select_account'});
+    await firebase.auth().signInWithPopup(provider)
     .then(async (u) => {
       // If is new user, create doc in users col
       const existingUser = await getDoc('users', u.user.uid);
       if (!existingUser) {
         await addDoc('users', {
-          displayName: "",
-          description: "",
-          logo: ""
+          displayName: u.user.displayName,
+          email: u.user.email,
+          logo: u.user.photoURL,
         }, u.user.uid);
       }
       window.location.href = '/';
@@ -120,5 +121,5 @@ export default function LoginPage() {
   );
   
   // Prevents flashing page when logged in
-  return (<></>); // TODO: add loading page
+  return <Loading_page />; // TODO: add loading page
 }
