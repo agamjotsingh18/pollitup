@@ -1,6 +1,6 @@
 # Poll It Up ~ A community polling app with unlimited potential
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-3-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-4-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 <img src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=for-the-badge" alt="PRs Welcome" /> <a href="https://github.com/agamjotsingh18/pollitup/pulls" target="_blank"><img alt="GitHub pull requests" src="https://img.shields.io/github/issues-pr/agamjotsingh18/pollitup?style=for-the-badge" /></a> <a href="https://github.com/agamjotsingh18/pollitup/issues" target="_blank"><img alt="GitHub issues" src="https://img.shields.io/github/issues/agamjotsingh18/pollitup?style=for-the-badge" /></a> <a href="https://github.com/agamjotsingh18/pollitup/blob/master/README.md#contributors-" target="_blank"></a>
@@ -115,6 +115,7 @@ See the open issues for a full list of proposed features (and known issues).<br>
     <td align="center"><a href="https://www.linkedin.com/in/agamjot-singh/"><img src="https://avatars.githubusercontent.com/u/70067726?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Agamjot Singh</b></sub></a><br /><a href="https://github.com/agamjotsingh18/pollitup/commits?author=agamjotsingh18" title="Documentation">📖</a></td>
     <td align="center"><a href="https://github.com/dakshgupta2002"><img src="https://avatars.githubusercontent.com/u/78641951?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Daksh Gupta</b></sub></a><br /><a href="https://github.com/agamjotsingh18/pollitup/commits?author=dakshgupta2002" title="Documentation">📖</a></td>
     <td align="center"><a href="https://github.com/ayush25102001"><img src="https://avatars.githubusercontent.com/u/78008646?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Ayush Kangane</b></sub></a><br /><a href="https://github.com/agamjotsingh18/pollitup/commits?author=ayush25102001" title="Documentation">📖</a></td>
+    <td align="center"><a href="https://github.com/PrajwalDhule"><img src="https://avatars.githubusercontent.com/u/89639472?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Prajwal Dhule</b></sub></a><br /><a href="https://github.com/agamjotsingh18/pollitup/commits?author=PrajwalDhule" title="Documentation">📖</a></td>
   </tr>
 </table>
 
