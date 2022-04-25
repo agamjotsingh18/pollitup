@@ -48,47 +48,32 @@ export default function Profile(props){
 
     React.useEffect(() => {
         //if (!user && !loadingUser) return window.location.href = '/login';
-        //if (!user || loadingUser) return;
+        if (!user) return;
 
         async function checkUserDoc() {
-            try{
-                const userData = await getDoc('users', uid ?? user.uid);
-                if (!userData) {
-                    await addDoc('users', {
-                        displayName: "",
-                        description: "",
-                        logo: ""
-                    }, user.uid);
-                    setUserDoc({
-                        displayName: "",
-                        description: "",
-                        logo: ""
-                    });
-                    setDisplayName("");
-                    setDesc("");
-                    setPfpLink("");
-                } else {
-                    setUserDoc(userData);
-                    setDisplayName(userData.displayName);
-                    setDesc(userData.description);
-                    setPfpLink(userData.logo);
-                }
-                const userDocs = await getUserDocs('polls', uid ?? user.uid);
-                setPolls(userDocs);
-            }
-            catch{
-                toast({
-                    title: "Error",
-                    description: "User does not exist!",
-                    status: "error",
-                    isClosable: true 
-                })
+            const userData = await getDoc('users', user.uid);
+            if (!userData || loadingUser) {
+                await addDoc('users', {
+                    displayName: "",
+                    description: "",
+                    logo: ""
+                }, user.uid);
             }
         }
-
-
         checkUserDoc();
-    }, [user, loadingUser, uid, toast]);
+
+        async function getPolls() {
+            const userDocs = await getUserDocs('polls', user.uid);
+            setPolls(userDocs);
+            setDisplayName(user.displayName)
+            setUserDoc(user)
+            setPfpLink(user.pfpLink)
+            setPolls(user.polls)
+            setDesc(user.description)
+            console.log(userDocs)
+        }
+        getPolls();
+    }, [user, loadingUser]);
 
     async function saveData(){
 
