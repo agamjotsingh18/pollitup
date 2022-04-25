@@ -40,6 +40,15 @@
       "contributions": [
         "doc"
       ]
+    },
+    {
+      "login": "rsinghcodes",
+      "name": "Raghvendra Singh",
+      "avatar_url": "https://avatars.githubusercontent.com/u/67682451?v=4",
+      "profile": "https://rsinghcodes.netlify.app/",
+      "contributions": [
+        "doc"
+      ]
     }
   ],
   "contributorsPerLine": 7,
