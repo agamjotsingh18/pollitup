@@ -193,7 +193,7 @@ export default function Profile(props){
                             <>
                                 
                                 <Button colorScheme="gray" leftIcon={<FontAwesomeIcon icon={faEdit}/>} onClick={()=>setEdit(true)}>Edit</Button>
-                                <Button colorScheme="blue" onClick={saveData}>Save</Button>
+                                {edit &&<Button colorScheme="blue" onClick={saveData}>Save</Button>}
                                 <Button colorScheme="gray" variant="solid" onClick = {share} leftIcon={<FontAwesomeIcon icon={faShareAlt}/>}>Share</Button>
 
                             </>
