@@ -65,6 +65,13 @@ a {
   cursor: pointer;
 }
 
+footer{
+  height: 100px;
+  display: flex; 
+  justify-content: center;
+  align-items: center;
+}
+
 ::-webkit-scrollbar {
   width: 18px;
 }
