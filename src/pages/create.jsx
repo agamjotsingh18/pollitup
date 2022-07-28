@@ -83,6 +83,16 @@ export default function Create() {
         return new Set(mutable).size !== mutable.length
     }
 
+    function checkForEmpty(array){
+        let nonEmptyarray = []
+        array.forEach((str)=>{
+            if(str.length > 0){
+                nonEmptyarray.push(str)
+            }
+        })
+        return nonEmptyarray.length !== array.length
+    }
+
     let submit = async() =>{
         setLoading(true);
         let values = form;
@@ -124,6 +134,18 @@ export default function Create() {
             toast({
                 title: "Error",
                 description: "Please remove duplicate answers!",
+                status: "error",
+                duration: 5000,
+                isClosable: true,
+            });
+            setLoading(false);
+            return undefined;
+        }
+        else if (values.type === "multipleChoice" && checkForEmpty(answers)){
+            console.log("Error found")
+            toast({
+                title: "Error",
+                description: "Please fill all the answers!",
                 status: "error",
                 duration: 5000,
                 isClosable: true,
