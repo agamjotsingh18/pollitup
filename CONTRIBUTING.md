@@ -1,4 +1,4 @@
-# Contributing to [Dev Hub](https://github.com/imniladri/DevHub)
+# Contributing to [PollItUp](https://github.com/agamjotsingh18/pollitup)
 
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square&logo=git&logoColor=fff)](https://github.com/agamjotsingh18/pollitup/pulls)
 [![GitHub Issues](https://img.shields.io/github/issues/agamjotsingh18/pollitup?style=flat-square&logo=github&color=f00)](https://github.com/agamjotsingh18/pollitup/issues)
