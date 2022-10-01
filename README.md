@@ -140,6 +140,7 @@ See the open issues for a full list of proposed features (and known issues).<br>
 <p align="left">
 <h3 align="left">Contact:</h3>
 <a href="https://www.linkedin.com/in/agamjot-singh/" target="blank"><img align="center" src="https://img.icons8.com/bubbles/100/000000/linkedin.png" height="75" width="75" /></a>&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="https://twitter.com/_agamjotsingh/" target="blank"><img align="center" src="https://img.icons8.com/bubbles/100/000000/twitter.png" height="75" width="75" /></a>&nbsp;&nbsp;&nbsp;&nbsp;
 <a href="mailto:agamjotsingh1801@gmail.com" target="blank"><img align="center" src="https://img.icons8.com/bubbles/100/000000/email.png" height="75" width="75" /></a>&nbsp;&nbsp;&nbsp;&nbsp;
 </p>
 </hr>
