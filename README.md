@@ -1,4 +1,8 @@
 # Poll It Up ~ A community polling app with unlimited potential
+
+![hacktoberfest-image](https://user-images.githubusercontent.com/70067726/193400766-1e2ca0c0-2cbe-4f08-ad6b-5699ce591b5d.png)
+<h1 align="center"> HacktoberFest Accepted</h1>
+
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
 [![All Contributors](https://img.shields.io/badge/all_contributors-11-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
