@@ -21,6 +21,8 @@ import {
   useColorModeValue as mode,
   VisuallyHidden,
   useToast,
+  Image,
+  Center
 } from '@chakra-ui/react';
 import Link from '../components/link';
 import EmailRequestForm from '../components/emailRequestForm';
@@ -40,10 +42,10 @@ function EmailSentPage() {
           <Heading mt="6" textAlign="center" size="xl" fontWeight="extrabold">
            Password Reset 
           </Heading>
-          <Text mt="4" align="center" maxW="md" fontWeight="medium">
-            <span>Enter the Email associated with your account </span>
-                      </Text>
         </Box>
+	<Center>
+		<Image src="./icons/done-icon.svg" alt="logo" boxSize="20vh" my="4" />
+	</Center>
         <Box maxW={{ sm: 'md' }} mx={{ sm: 'auto' }} mt="8" w={{ sm: 'full' }}>
           <Box
             bg={mode('white', 'gray.700')}
