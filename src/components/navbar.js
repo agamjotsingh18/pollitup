@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link as RLink } from 'react-router-dom';
 import ColorModeToggle from './colorModeToggle';
+import logo from '../assets/logo.png'
 
 
 import {
@@ -66,7 +67,7 @@ function Logo() {
   return (
     <Box>
       <RLink to="/">
-        <Heading as="h1" size="xl">Poll It Up</Heading>
+        <Heading as="h1" size="xl"><img style={{width: "130px"}} src={logo} alt="logo" /></Heading>
       </RLink>
     </Box>
   );
