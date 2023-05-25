@@ -1,7 +1,8 @@
 import React from 'react';
 import { Link as RLink } from 'react-router-dom';
 import ColorModeToggle from './colorModeToggle';
-import { Slide } from '@chakra-ui/react';
+
+import logo from '../assets/logo.png'
 
 import {
   Box,
@@ -79,10 +80,15 @@ export default function NavbarComponent() {
 function Logo() {
   return (
     <Box>
+
       <RLink to='/'>
         <Heading as='h1' size='xl'>
           Poll It Up
         </Heading>
+=======
+      <RLink to="/">
+        <Heading as="h1" size="xl"><img style={{width: "130px"}} src={logo} alt="logo" /></Heading>
+
       </RLink>
     </Box>
   );
