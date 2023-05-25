@@ -4,7 +4,7 @@
 <h1 align="center"> HacktoberFest Accepted</h1>
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-11-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-12-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 <img src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=for-the-badge" alt="PRs Welcome" /> <a href="https://github.com/agamjotsingh18/pollitup/pulls" target="_blank"><img alt="GitHub pull requests" src="https://img.shields.io/github/issues-pr/agamjotsingh18/pollitup?style=for-the-badge" /></a> <a href="https://github.com/agamjotsingh18/pollitup/issues" target="_blank"><img alt="GitHub issues" src="https://img.shields.io/github/issues/agamjotsingh18/pollitup?style=for-the-badge" /></a> <a href="https://github.com/agamjotsingh18/pollitup/blob/master/README.md#contributors-" target="_blank"></a>
@@ -129,6 +129,7 @@ See the open issues for a full list of proposed features (and known issues).<br>
     <td align="center"><a href="https://github.com/yeshwanth235"><img src="https://avatars.githubusercontent.com/u/50798369?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Bablu yeshwanth</b></sub></a><br /><a href="https://github.com/agamjotsingh18/pollitup/commits?author=yeshwanth235" title="Documentation">📖</a></td>
     <td align="center"><a href="https://www.shoutmeback.com/"><img src="https://avatars.githubusercontent.com/u/59647563?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Shubham Maurya</b></sub></a><br /><a href="https://github.com/agamjotsingh18/pollitup/commits?author=Shubham29012001" title="Documentation">📖</a></td>
     <td align="center"><a href="https://rsinghcodes.netlify.app/"><img src="https://avatars.githubusercontent.com/u/67682451?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Raghvendra Singh</b></sub></a><br /><a href="https://github.com/agamjotsingh18/pollitup/commits?author=rsinghcodes" title="Documentation">📖</a></td>
+    <td align="center"><a href="https://debsouryacodez.netlify.app/"><img src="https://avatars.githubusercontent.com/u/91617309?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Debsourya Datta/b></sub></a><br /><a href="https://github.com/agamjotsingh18/pollitup/commits?author=debsouryadatta" title="Documentation">📖</a></td>
   </tr>
 </table>
 

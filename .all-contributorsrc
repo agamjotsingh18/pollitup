@@ -103,6 +103,15 @@
       "contributions": [
         "doc"
       ]
+    },
+    {
+      "login": "debsouryadatta",
+      "name": "Debsourya Datta",
+      "avatar_url": "https://avatars.githubusercontent.com/u/91617309?v=4",
+      "profile": "https://debsouryacodez.netlify.app/",
+      "contributions": [
+        "updated logo"
+      ]
     }
   ],
   "contributorsPerLine": 7,
