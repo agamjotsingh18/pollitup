@@ -37,26 +37,7 @@ export default function NavbarComponent() {
 
   return (
     <Flex
-      as='nav'
-      {...(sticky && {
-        sx: {
-          pos: 'sticky',
-          top: '0',
-          transition: 'all .3s ease-in-out',
-          h: '90px',
-          zIndex: 'overlay',
-          bg: 'white',
-          boxShadow: 'lg',
-        },
-      })}
-      align='center'
-      justify='space-between'
-      wrap='wrap'
-      w='100%'
-      py={4}
-      px={8}
-      bg={['brand.500', 'brand.500', 'transparent', 'transparent']}
-      color={['white', 'white', 'brand.500', 'brand.500']}
+      as='nav' {...(sticky && { sx: {pos: 'sticky',top: '0',transition: 'all .3s ease-in-out',h: '90px',zIndex: 'overlay',bg: 'white',boxShadow: 'lg',},})} align='center' justify='space-between' wrap='wrap' w='100%' py={4} px={8} bg={['brand.500', 'brand.500', 'transparent', 'transparent']} color={['white', 'white', 'brand.500', 'brand.500']}
     >
       {/* Logo */}
       <Logo />
