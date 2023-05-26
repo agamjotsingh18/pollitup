@@ -47,6 +47,7 @@ export default function LoginPage() {
           title: "Error",
           description: err.message,
           status: "error",
+          //Pushpendra changes
           position: "top-right",
           duration: 5000,
           isClosable: true,
@@ -80,6 +81,7 @@ export default function LoginPage() {
           title: "Error",
           description: err.message,
           status: "error",
+          //Pushpendra changes
           position: "top-right",
           duration: 5000,
           isClosable: true,

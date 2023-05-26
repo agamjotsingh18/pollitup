@@ -41,6 +41,7 @@ export default function RegisterPage() {
         title: "Error",
         description: "Passwords do not match!",
         status: "error",
+        //Pushpendra changes
         position: "top-right",
         duration: 5000,
         isClosable: true,
@@ -59,6 +60,7 @@ export default function RegisterPage() {
           description: err.message,
           status: "error",
           duration: 5000,
+          //Pushpendra changes
           position: "top-right",
           isClosable: true,
         });
