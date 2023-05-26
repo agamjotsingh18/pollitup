@@ -153,6 +153,5 @@ See the open issues for a full list of proposed features (and known issues).<br>
 </hr>
 
 
----
 <p align="right"><a href="#top">Back to top</a></p>
 
