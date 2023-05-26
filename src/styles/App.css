@@ -70,6 +70,18 @@ footer{
   display: flex; 
   justify-content: center;
   align-items: center;
+  flex-direction: column;
+}
+footer-2{
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+footer-socioicon{
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 ::-webkit-scrollbar {
