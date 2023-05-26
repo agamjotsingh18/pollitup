@@ -1,8 +1,8 @@
 import React from 'react';
 
 import initFirebase from '../lib/firebase';
-import firebase from 'firebase/app';
-import 'firebase/auth';
+import firebase from 'firebase/compat/app';
+import 'firebase/compat/auth';
 import { useAuth } from '../lib/auth';
 //import { addDoc, getDoc } from '../lib/db';
 

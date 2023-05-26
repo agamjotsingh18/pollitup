@@ -1,10 +1,10 @@
 import { Button, FormControl, FormLabel, Input, Stack, Link} from '@chakra-ui/react'
-import { useHistory} from 'react-router-dom';
+import { unstable_HistoryRouter, useHistory} from 'react-router-dom';
 import * as React from 'react'
 
 
 function EmailRequestForm(props) {
-	const history = useHistory();
+	const history = unstable_HistoryRouter();
 	function handleSubmit(event) {
 		event.preventDefault();
 		props.handleResetPassword();

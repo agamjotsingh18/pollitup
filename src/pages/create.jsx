@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 
 import initFirebase from '../lib/firebase';
-import firebase from 'firebase/app';
+import firebase from 'firebase/compat/app';
 import 'firebase/auth';
 import { useAuth } from '../lib/auth';
 import { addDoc, getDoc, getUserRef } from '../lib/db';
