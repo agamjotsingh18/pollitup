@@ -60,7 +60,7 @@ export default function RegisterPage() {
           description: err.message,
           status: "error",
           duration: 5000,
-          //Pushpendra changes
+          //Pushpendra changes are here
           position: "top-right",
           isClosable: true,
         });
