@@ -26,6 +26,8 @@ import Contact from "./pages/contact";
 import PollResults from './pages/pollResults';
 import Discover from './pages/discover';
 import Homepage from './pages/homePage';
+import ForgotPassEmail from './pages/ForgotPassEmail';
+import EmailSentPage from './pages/emailSent';
 import {TransitionGroup, CSSTransition} from 'react-transition-group';
 
 function App() {
@@ -57,6 +59,10 @@ function App() {
 
                       {/* Change to /dynamic by a poll id */}
                       <Route path = "/poll/:id" component = {PollResults}/>
+		      
+		      {/* Forgot Password */}
+		      <Route path = "/forgot-password" component = {ForgotPassEmail}/>
+		      <Route path = "/email-sent" component = {EmailSentPage}/>
 
                       {/* NOT FOUND */}
                       <Route component = {NotFound}/>
