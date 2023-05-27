@@ -6,6 +6,7 @@ repo = "pollitup"
 url = f"https://api.github.com/repos/{owner}/{repo}/contributors"
 response = requests.get(url)
 contributors = response.json()
+contributors_count = len(response.json())
 
 # Process contributors' information excluding bots
 contributor_info = []
@@ -39,7 +40,7 @@ new_readme_content = '''\
 <h1 align="center">Contributions Accepted under GSSoC '23</h1>
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![Contributors](https://img.shields.io/badge/all_contributors-7-orange.svg?style=flat-square)](#contributors-)
+[![Contributors](https://img.shields.io/badge/all_contributors-'''{contributors_count}'''-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
