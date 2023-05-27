@@ -39,8 +39,9 @@ new_readme_content = '''\
 
 <h1 align="center">Contributions Accepted under GSSoC '23</h1>
 
-<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![Contributors](https://img.shields.io/badge/all_contributors-'''{contributors_count}'''-orange.svg?style=flat-square)](#contributors-)
+<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->'''
+new_readme_content += '[![Contributors](https://img.shields.io/badge/all_contributors-' + str(contributors_count) + '-orange.svg?style=flat-square)](#contributors-)\n'
+new_readme_content += '''-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
