@@ -31,17 +31,18 @@ for index, contributor in enumerate(contributors, 1):
 with open("README.md", "r") as readme_file:
     readme_content = readme_file.read()
 
-# Remove previous contributor list
-start_marker = "<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->"
+# Find the start and end indexes of the contributors section
+start_marker = "## Contributors:"
 end_marker = "<!-- ALL-CONTRIBUTORS-LIST:END -->"
 start_index = readme_content.find(start_marker)
 end_index = readme_content.find(end_marker) + len(end_marker)
-updated_content = readme_content[:start_index] + readme_content[end_index:]
 
-# Insert new contributor list
-insert_index = updated_content.find("<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->", start_index)
-insert_content = f'{start_marker}\n<!-- prettier-ignore-start -->\n<!-- markdownlint-disable -->\n<table>\n  <tr>\n' + "\n".join(contributor_info) + '\n  </tr>\n</table>\n<!-- markdownlint-restore -->\n<!-- prettier-ignore-end -->\n{end_marker}\n'
-updated_content = updated_content[:insert_index] + insert_content + updated_content[insert_index:]
+# Construct the updated README content
+updated_content = readme_content[:start_index] + start_marker + "\n\n"
+updated_content += f'<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->\n<!-- prettier-ignore-start -->\n<!-- markdownlint-disable -->\n<table>\n  <tr>\n'
+updated_content += "\n".join(contributor_info)
+updated_content += '\n  </tr>\n</table>\n<!-- markdownlint-restore -->\n<!-- prettier-ignore-end -->\n'
+updated_content += readme_content[end_index:]
 
 # Write the updated README
 with open("README.md", "w") as readme_file:
