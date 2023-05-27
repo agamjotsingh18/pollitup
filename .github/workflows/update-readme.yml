@@ -26,5 +26,5 @@ jobs:
         python update_readme.py
         git config user.name "GitHub Actions"
         git config user.email "actions@github.com"
-        git commit -am "Update contributors in README" --quiet --allow-empty
+        git commit -am "Update contributors in README [skip ci]" --quiet --allow-empty
         git push --quiet
