@@ -17,7 +17,7 @@ for contributor in contributors:
 
     contributor_info.append(f'<div align="center" style="display: inline-block; margin: 10px;">\n'
                            f'  <a href="{profile_url}">\n'
-                           f'    <img src="{avatar_url}" alt="{username}" style="width: 50%; border-radius: 50%;">\n'
+                           f'    <img src="{avatar_url}" alt="{username}" style="width: 50px; border-radius: 1000px;">\n'
                            f'  </a><br/>\n'
                            f'  <a href="{profile_url}">{username}</a><br/>\n'
                            f'  {contributions} contributions\n'
@@ -28,7 +28,7 @@ with open("README.md", "r") as readme_file:
     readme_content = readme_file.read()
 
 # Update README with contributor information
-updated_content = readme_content + "\n\n## Contributors\n\n" + '<div align="center">\n' + "\n".join(contributor_info) + '\n</div>'
+updated_content = readme_content + "\n\n## Contributors\n\n" + "\n".join(contributor_info)
 
 # Write the updated README
 with open("README.md", "w") as readme_file:
