@@ -1,7 +1,6 @@
-import React from 'react';
-import { Link as RLink } from 'react-router-dom';
-import ColorModeToggle from './colorModeToggle';
-
+import React from "react";
+import { Link as RLink } from "react-router-dom";
+import ColorModeToggle from "./colorModeToggle";
 
 import {
   Box,
@@ -11,30 +10,36 @@ import {
   Text,
   Button,
   useColorModeValue,
-} from '@chakra-ui/react';
-import { HamburgerIcon, CloseIcon } from '@chakra-ui/icons';
-import { useAuth } from '../lib/auth';
+} from "@chakra-ui/react";
+import { HamburgerIcon, CloseIcon } from "@chakra-ui/icons";
+import { useAuth } from "../lib/auth";
 
 export default function NavbarComponent() {
   const [isOpen, setIsOpen] = React.useState(false);
-  
+
   const { user, loadingUser } = useAuth();
   const toggle = () => setIsOpen(!isOpen);
+
+  //Main Navbar Component
 
   return (
     <Flex
       as="nav"
-      align="center" justify="space-between" wrap="wrap"
-      w="100%" py={4} px={8}
+      align="center"
+      justify="space-between"
+      wrap="wrap"
+      w="100%"
+      py={4}
+      px={8}
       bg={["brand.500", "brand.500", "transparent", "transparent"]}
       color={["white", "white", "brand.500", "brand.500"]}
     >
       {/* Logo */}
-      <Logo/>
+      <Logo />
 
       {/* Toggle */}
-      <Toggle toggle={toggle} isOpen={isOpen}/>
-          
+      <Toggle toggle={toggle} isOpen={isOpen} />
+
       {/* Links */}
       <Box
         display={{ base: isOpen ? "block" : "none", md: "block" }}
@@ -47,58 +52,67 @@ export default function NavbarComponent() {
           direction={["column", "row", "row", "row"]}
           pt={[4, 4, 0, 0]}
         >
-          <MenuItem to="/">{(user && !loadingUser) ? "Dashboard" : "Home"}</MenuItem>
+          <MenuItem to="/">
+            {user && !loadingUser ? "Dashboard" : "Home"}
+          </MenuItem>
           <MenuItem to="/discover">Discover</MenuItem>
-          {(user && !loadingUser) && <MenuItem to="/create">Create</MenuItem>}
-          {(user && !loadingUser) && <MenuItem to="/profile">Profile</MenuItem>}
-          <MenuItem to={user && !loadingUser ? "/logout" : "/login"} type="button">
+          <MenuItem to="/about">About</MenuItem>
+          <MenuItem to="/contact">Contact</MenuItem>
+          {user && !loadingUser && <MenuItem to="/create">Create</MenuItem>}
+          {user && !loadingUser && <MenuItem to="/profile">Profile</MenuItem>}
+          <MenuItem
+            to={user && !loadingUser ? "/logout" : "/login"}
+            type="button"
+          >
             {user && !loadingUser ? "Logout" : "Login/Register"}
           </MenuItem>
-        <ColorModeToggle color={useColorModeValue("brand.700", "white")}/>
-
+          <ColorModeToggle color={useColorModeValue("brand.700", "white")} />
         </Stack>
       </Box>
     </Flex>
-  )
+  );
 }
+
+//Logo for Navbar
 
 function Logo() {
   return (
     <Box>
       <RLink to="/">
-        <Heading as="h1" size="xl">Poll It Up</Heading>
+        <Heading as="h1" size="xl">
+          Poll It Up
+        </Heading>
       </RLink>
     </Box>
   );
 }
 
+//Toggle for Navbar
+
 function Toggle(props) {
   const { toggle, isOpen } = props;
   return (
-    <Box 
-      display={{ base: "block", md: "none" }} p={2}
-      onClick={toggle}
-    >
-      {isOpen ? <CloseIcon/> : <HamburgerIcon w={5} h={5}/>}
+    <Box display={{ base: "block", md: "none" }} p={2} onClick={toggle}>
+      {isOpen ? <CloseIcon /> : <HamburgerIcon w={5} h={5} />}
     </Box>
   );
 }
 
 function MenuItem(props) {
   const { to, children, type, ...rest } = props;
-  
+
   const bgDesktop = useColorModeValue("brand.50", "brand.900");
   const bgHoverDesktop = useColorModeValue("brand.100", "brand.800");
 
   // Button menu item
-  if (type === 'button') {
+  if (type === "button") {
     return (
       <RLink to={to}>
-        <Button 
+        <Button
           size="sm"
           bg={["brand.400", "brand.400", bgDesktop, bgDesktop]}
           _hover={{
-            bg: ["brand.300", "brand.300", bgHoverDesktop, bgHoverDesktop]
+            bg: ["brand.300", "brand.300", bgHoverDesktop, bgHoverDesktop],
           }}
         >
           {children}
@@ -106,12 +120,20 @@ function MenuItem(props) {
       </RLink>
     );
   }
-  
+
   return (
     <RLink to={to}>
-      <Text display="block" {...rest}>
+      <Button
+        css={{
+          _active: {
+            color: "white",
+          },
+        }}
+        color={"3182ce"}
+        variant="ghost"
+      >
         {children}
-      </Text>
+      </Button>
     </RLink>
   );
 }

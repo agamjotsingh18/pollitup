@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import publicIp from 'public-ip';
+import {publicIp} from 'public-ip';
 
 import initFirebase from '../lib/firebase';
 import { addSubDoc } from '../lib/db';
