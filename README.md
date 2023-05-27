@@ -1,7 +1,10 @@
 # Poll It Up ~ A community polling app with unlimited potential
 
-![hacktoberfest-image](https://user-images.githubusercontent.com/70067726/193400766-1e2ca0c0-2cbe-4f08-ad6b-5699ce591b5d.png)
-<h1 align="center"> HacktoberFest Accepted</h1>
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/88102392/239682688-0c5debf5-d414-4916-87d8-e1a710773ae3.png" alt="image">
+</p>
+
+<h1 align="center">Contributions Accepted under GSSoC '23</h1>
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
 [![All Contributors](https://img.shields.io/badge/all_contributors-11-orange.svg?style=flat-square)](#contributors-)
@@ -148,3 +151,7 @@ See the open issues for a full list of proposed features (and known issues).<br>
 <a href="mailto:agamjotsingh1801@gmail.com" target="blank"><img align="center" src="https://img.icons8.com/bubbles/100/000000/email.png" height="75" width="75" /></a>&nbsp;&nbsp;&nbsp;&nbsp;
 </p>
 </hr>
+
+
+<p align="right"><a href="#top">Back to top</a></p>
+
