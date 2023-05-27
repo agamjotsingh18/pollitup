@@ -3,7 +3,7 @@ name: Update README
 on:
   push:
     branches:
-      - main  # Change to your branch name if necessary
+      - main
 
 jobs:
   update-readme:
@@ -16,7 +16,7 @@ jobs:
     - name: Set up Python
       uses: actions/setup-python@v2
       with:
-        python-version: '3.10'  # Change to the Python version you need
+        python-version: '3.10'
 
     - name: Install dependencies
       run: pip install requests
@@ -24,7 +24,7 @@ jobs:
     - name: Update README
       run: |
         python update_readme.py
-        git config --global user.name "GitHub Actions"
-        git config --global user.email "actions@github.com"
-        git commit -am "Update contributors in README" || true
-        git push
+        git config user.name "GitHub Actions"
+        git config user.email "actions@github.com"
+        git commit -am "Update contributors in README" --quiet --allow-empty
+        git push --quiet
