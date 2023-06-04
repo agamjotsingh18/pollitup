@@ -5,6 +5,8 @@ import { Text } from "@chakra-ui/react";
 import { Heading } from "@chakra-ui/react";
 import { Button } from "@chakra-ui/react";
 import { Stack, Flex, Center, } from "@chakra-ui/react"
+import { deleteDoc } from '../lib/db';
+import { useToast } from "@chakra-ui/react";
 
 import Pollpopup from './pollPopup';
 
@@ -13,6 +15,8 @@ export default function Poll(props){
     const [showModal, setShowModal] = React.useState(false);
     const [votes, setVotes] = React.useState(Math.floor(Math.random()*5)); //replce with prop
     const [hasVoted, setVoted] = React.useState('');
+
+    const toast = useToast();
 
     function upVote(){
         if (hasVoted==='down'){
@@ -44,6 +48,19 @@ export default function Poll(props){
         }
     }
 
+    async function deleteHandler(docId) {
+        await deleteDoc("polls", docId);
+        console.log(props.polls);
+        props.setPolls(props.polls.filter(poll => poll.id !== docId))
+        toast({
+            title: "Deleted",
+            description: "Success your Poll was deleted",
+            status: "success",
+            duration: 5000,
+            isClosable: true,
+        });
+    }
+
     return (
         <Box px={8} py={{ base: 12, lg: 8 }} borderWidth="1px" borderRadius="lg" overflow="hidden">
             <Stack direction="column" spacing={4}>
@@ -62,7 +79,8 @@ export default function Poll(props){
                         </Box>
                     </Center>
                 </Flex>
-                <Button colorScheme="red" onClick={()=>setShowModal(true)} isFullWidth={true}>Open Poll</Button>
+                <Button colorScheme="green" onClick={()=>setShowModal(true)} isFullWidth={true}>Open Poll</Button>
+                <Button colorScheme="red" onClick={()=>deleteHandler(props.id)} isFullWidth={true}>Delete Poll</Button>
             </Stack>
             
             {showModal && <Pollpopup set={setShowModal} data={props.data} />}

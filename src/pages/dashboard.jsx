@@ -6,7 +6,7 @@ import 'firebase/auth';
 import { useAuth } from '../lib/auth';
 import { addDoc, getDoc, getUserDocs } from '../lib/db';
 
-import { 
+import {
     Container,
     Heading,
     SimpleGrid,
@@ -17,7 +17,7 @@ export default function Dashboard() {
     const { user, loadingUser } = useAuth();
 
     const [polls, setPolls] = React.useState();
-    
+
     React.useEffect(() => {
         //if (!user && !loadingUser) return window.location.href = '/login';
         if (!user) return;
@@ -43,12 +43,12 @@ export default function Dashboard() {
 
     return (
         <Container maxW="container.lg">
-            <Heading as="h1" mt={12} align="center">Dashboard</Heading><br/>
+            <Heading as="h1" mt={12} align="center">Dashboard</Heading><br />
 
             <Heading size="lg" fontWeight="bold">My Polls</Heading>
             <SimpleGrid p={8} columns={{ base: 1, md: 2, lg: 4 }} spacing={6}>
-                {polls && polls.map(poll => 
-                    <Poll name={poll.name} description={poll.description} data={poll} />
+                {polls && polls.map(poll =>
+                    <Poll name={poll.name} description={poll.description} data={poll} id={poll.id} polls={polls} setPolls={setPolls}/>
                 )}
             </SimpleGrid>
         </Container>

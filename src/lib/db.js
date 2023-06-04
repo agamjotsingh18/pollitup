@@ -3,7 +3,7 @@ import firebase from 'firebase/app';
 import 'firebase/firestore';
 
 initFirebase();
-const db = firebase.firestore();
+export const db = firebase.firestore();
 
 // Adds a document to a collection
 // Returns new document ref
