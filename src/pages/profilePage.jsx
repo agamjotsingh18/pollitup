@@ -119,7 +119,7 @@ export default function Profile(props){
     }
 
     let share = () => {
-        let copyText = "https://www.pollitup.ink/profile/" + user.uid;
+        let copyText = `${window.location.href}/` + user.uid;
         
         
 

@@ -1,0 +1,39 @@
+name: Update README
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  update-readme:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.10'
+
+      - name: Install dependencies
+        run: pip install requests
+
+      - name: Check commit count
+        id: commit-count
+        run: echo ::set-output name=commit_count::$(git rev-list --count HEAD)
+
+      - name: Update README
+        run: |
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+          commitCount=$(echo "${{ steps.commit-count.outputs.commit_count }}")
+          if [[ $((commitCount % 10)) -eq 0 ]]; then
+            python update_readme.py
+            git commit -am "Update contributors in README [skip ci]" --quiet --allow-empty
+            git push --quiet
+          else
+            echo "Skipping update"
+          fi
