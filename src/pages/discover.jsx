@@ -89,7 +89,7 @@ export default function Discover(){
                 <Container maxW="container.lg" mt={12}>
                     <Heading>Most Recent Polls</Heading>
                     <SimpleGrid p={8} columns={{ base: 1, md: 2, lg: 4 }} spacing={6}>
-                        {markers.slice(-8).map(marker => <Poll /*pollvoting={true}*/ name={marker.name} description={marker.description} data={marker} />)}
+                        {markers.slice(-8).map(marker => <Poll /*pollvoting={true}*/ name={marker.name} description={marker.description} data={marker} flag="discover"/>)}
                     </SimpleGrid>
                 </Container>
             </Box>
