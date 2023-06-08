@@ -7,8 +7,8 @@ import 'firebase/auth';
 import { useAuth } from '../lib/auth';
 import { addDoc, getDoc } from '../lib/db';
 
-import { emailRequestForm } from "../components/emailRequestForm";
-import { DividerWithText } from '../components/dividerWithText';
+import { emailRequestForm } from "../components/emailRequestForm.jsx";
+import { DividerWithText } from '../components/dividerWithText.jsx';
 import { FaGoogle } from 'react-icons/fa';
 
 import {
