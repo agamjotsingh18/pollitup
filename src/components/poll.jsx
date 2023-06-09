@@ -13,7 +13,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCopy, faCheck } from '@fortawesome/free-solid-svg-icons'
 
 export default function Poll(props) {
-    
+
     const [showModal, setShowModal] = React.useState(false);
     const [votes, setVotes] = React.useState(Math.floor(Math.random() * 5)); //replce with prop
     const [hasVoted, setVoted] = React.useState('');
