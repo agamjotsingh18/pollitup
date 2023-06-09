@@ -21,13 +21,13 @@ export default function Poll(props) {
 
     const toast = useToast();
 
-    function upVote() {
-        if (hasVoted==='down') {
+    function upVote(){
+        if (hasVoted==='down'){
             setVotes(votes+2);
             setVoted('up');
         }
         else if (hasVoted === '') {
-            setVotes(votes+1);
+            setVotes(votes + 1);
             setVoted('up');
         }
         else {
