@@ -13,6 +13,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCopy, faCheck } from '@fortawesome/free-solid-svg-icons'
 
 export default function Poll(props) {
+    
     const [showModal, setShowModal] = React.useState(false);
     const [votes, setVotes] = React.useState(Math.floor(Math.random() * 5)); //replce with prop
     const [hasVoted, setVoted] = React.useState('');
@@ -21,12 +22,12 @@ export default function Poll(props) {
     const toast = useToast();
 
     function upVote() {
-        if (hasVoted === 'down') {
-            setVotes(votes + 2);
+        if (hasVoted==='down') {
+            setVotes(votes+2);
             setVoted('up');
         }
         else if (hasVoted === '') {
-            setVotes(votes + 1);
+            setVotes(votes+1);
             setVoted('up');
         }
         else {
@@ -102,8 +103,7 @@ export default function Poll(props) {
                     </Center>
                 </Flex>
                 {(props.flag === "discover") ? <Button colorScheme="green" onClick={() => setShowModal(true)} isFullWidth={true}>Open Poll</Button> :
-                    <>
-                        <Button colorScheme="green" onClick={() => setShowModal(true)} isFullWidth={true}>Open Poll</Button>
+                    <><Button colorScheme="green" onClick={() => setShowModal(true)} isFullWidth={true}>Open Poll</Button>
                         <Button colorScheme="red" onClick={() => deleteHandler(props.id)} isFullWidth={true}>Delete Poll</Button>
                     </>}
             </Stack>
