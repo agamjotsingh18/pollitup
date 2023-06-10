@@ -1,33 +1,17 @@
 import React from 'react';
-import { useHistory, Route , Routes , Redirect } from 'react-router-dom';
 
-import initFirebase from '../lib/firebase';
-import firebase from 'firebase/app';
 import 'firebase/auth';
-import { useAuth } from '../lib/auth';
-import { addDoc, getDoc } from '../lib/db';
 
-import { emailRequestForm } from "../components/emailRequestForm.jsx";
-import { DividerWithText } from '../components/dividerWithText.jsx';
-import { FaGoogle } from 'react-icons/fa';
 
 import {
   Container,
   Box,
   Heading,
   Text,
-  Button,
-  SimpleGrid,
   useColorModeValue as mode,
-  VisuallyHidden,
-  useToast,
   Image,
   Center
 } from '@chakra-ui/react';
-import Link from '../components/link';
-import EmailRequestForm from '../components/emailRequestForm';
-import {LoginForm} from '../components/loginForm';
-import login from './login';
 
 function EmailSentPage() {
 	function handleResetPassword() {
