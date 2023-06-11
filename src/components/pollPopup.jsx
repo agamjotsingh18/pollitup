@@ -39,6 +39,7 @@ export default function PollPopup(props){
     function handleClose(){
         props.set(false);
         setOpen(false);
+        props.setVoted(true);
     }
 
     function handleClick(e){
@@ -117,7 +118,7 @@ export default function PollPopup(props){
             </ModalBody>
 
                 <ModalFooter>
-                    { canViewPollResults && <Link to={`poll/${props.data.id}`} ><Button colorScheme="green" mr={3} onClick={handleClose}>
+                    { canViewPollResults && props.fromPollResults !== true && <Link to={`poll/${props.data.id}`} ><Button colorScheme="green" mr={3} onClick={handleClose}>
                         View Poll Results
                     </Button></Link>}
                     <Button colorScheme="blue" mr={3} onClick={handleSubmit}>
