@@ -50,6 +50,7 @@ export default function NavbarComponent() {
         >
           <MenuItem to="/">{(user && !loadingUser) ? "Dashboard" : "Home"}</MenuItem>
           <MenuItem to="/discover">Discover</MenuItem>
+          <MenuItem to="/contributorIndex">Contributors</MenuItem>
           {(user && !loadingUser) && <MenuItem to="/create">Create</MenuItem>}
           {(user && !loadingUser) && <MenuItem to="/profile">Profile</MenuItem>}
           <MenuItem to={user && !loadingUser ? "/logout" : "/login"} type="button">
