@@ -26,10 +26,13 @@ import initFirebase from '../lib/firebase';
 import 'firebase/auth';
 import { useAuth } from '../lib/auth';
 import { getDoc, getUserFromRef, getSubCol, deleteDoc } from '../lib/db';
+import PollPopup from '../components/pollPopup';
 
 export default function PollResults(){
     initFirebase();
     const { user, loadingUser } = useAuth();
+    const [showModal, setShowModal] = React.useState(false);
+    const [voted, setVoted] = React.useState(false);
 
     const { id } = useParams();
     const toast = useToast();
@@ -54,6 +57,7 @@ export default function PollResults(){
 
                 if (user && !loadingUser && user.uid === userData.id) {
                     setIsOwner(true);
+                    setVoted(true);
                 }
             }
             catch {
@@ -83,7 +87,7 @@ export default function PollResults(){
             }
         }
         getInfo();
-    }, [id, toast, user, loadingUser]);
+    }, [id, toast, user, loadingUser, showModal, voted]);
 
     async function deletePoll() {
         await deleteDoc('polls', id);
@@ -101,27 +105,37 @@ export default function PollResults(){
                     <Text>Responses: {responses.length} </Text> 
                     {pollHasVotes && <Text>Poll votes: {2}</Text>}
                 </Box>
+
+                {isOwner || voted ? (<></>) : (
+                    <Center>
+                        <Button colorScheme="green" width={"fit-content"} marginX={"auto"} onClick={() => setShowModal(true)}>Submit your Response</Button>
+                    </Center>
+                )}
                 <Box p={8} borderWidth="1px" borderRadius="lg">
                     <Heading as="h2" size="md" mb={4} align="center">Responses</Heading>
-                    <Box>
-                        {poll.type === 'multipleChoice' ?
-                            <Doughnut
-                                data={{
-                                    labels: [...poll.choices],
-                                    datasets: [{data:data, backgroundColor: ['red', 'blue', 'orange']}]
-                                }}
-                                options={{ maintainAspectRatio: false }}
-                            />
-                        :
-                            <Stack direction="column" spacing={2} maxH="100vh" overflow="auto">
-                                {responses.map(res =>
-                                    <Box m={1} py={4} px={6} borderWidth="1px" borderRadius="lg">
-                                        {res.answer}
-                                    </Box>
-                                )}
-                            </Stack>
-                        }
-                    </Box>
+                    { voted ? (
+                        <Box>
+                            {poll.type === 'multipleChoice' ?
+                                <Doughnut
+                                    data={{
+                                        labels: [...poll.choices],
+                                        datasets: [{data:data, backgroundColor: ['red', 'blue', 'orange']}]
+                                    }}
+                                    options={{ maintainAspectRatio: false }}
+                                />
+                            :
+                                <Stack direction="column" spacing={2} maxH="100vh" overflow="auto">
+                                    {responses.map(res =>
+                                        <Box m={1} py={4} px={6} borderWidth="1px" borderRadius="lg">
+                                            {res.answer}
+                                        </Box>
+                                    )}
+                                </Stack>
+                            }
+                        </Box>
+                    ) : (
+                        <Center>Responses will be visible once you submit your response</Center>
+                    ) }
                 </Box>
                 <Box borderWidth="1px" borderRadius="lg" h="40vh">
                     <Map defaultCenter={[poll.location._lat, poll.location._long]} defaultZoom={12} width="100%" height="100%" provider={getProvider}>
@@ -156,7 +170,9 @@ export default function PollResults(){
                     </>
                 }
             </Stack>
+            {showModal && <PollPopup set={setShowModal} data={poll} fromPollResults={true} voted={false} setVoted={setVoted} />}
         </Container>
+        
     ) : (
         <Container maxW="container.sm" p={8}>
             <Center>
