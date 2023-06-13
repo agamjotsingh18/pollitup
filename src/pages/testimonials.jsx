@@ -30,6 +30,7 @@ import {
 } from '@chakra-ui/react'
 import { FaQuoteRight } from 'react-icons/fa';
 import { db, getCol } from '../lib/db';
+import { useAuth } from '../lib/auth';
 
 
 const Testimonials = () => {
@@ -42,13 +43,15 @@ const Testimonials = () => {
     const [review, setReview] = useState('');
     const [testimonials, setTestimonials] = useState([]);
 
+    const { user, loadingUser } = useAuth();
+
     useEffect(() => {
-        const fetchTestimonials = async ()=> {
+        const fetchTestimonials = async () => {
             setTestimonials(await getCol("testimonials"))
         }
         fetchTestimonials()
     }, [])
-    
+
 
     const addReview = async () => {
         const response = await db.collection("testimonials").add({ name, review });
@@ -121,7 +124,8 @@ const Testimonials = () => {
 
 
             {/* Modal Component */}
-            <Button onClick={onOpen} width="50%" ml="25%" color="blue.400" fontWeight="bold">Write Your Review</Button>
+            {(user && !loadingUser) ? <Button onClick={onOpen} width="50%" ml="25%" color="blue.400" fontWeight="bold">Write Your Review</Button> :
+                <Button onClick={() => alert('Login/Register to add reviews')} width="50%" ml="25%" color="blue.400" fontWeight="bold">Write Your Review</Button>}
 
             <Modal
                 initialFocusRef={initialRef}
