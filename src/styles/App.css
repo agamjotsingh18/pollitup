@@ -70,6 +70,42 @@ footer{
   display: flex; 
   justify-content: center;
   align-items: center;
+  flex-direction: column;
+}
+footer-copyright{
+  /* position: absolute; */
+  width: 100%;
+}
+footer-2{
+  position: absolute;
+  bottom: 0px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  flex-direction: column-reverse;
+}
+footer-socio{
+  /* display: flex;
+  align-items: center;
+  justify-content:flex-start;
+  flex-direction: row-reverse; */
+  margin-bottom: 37px;
+  padding: 20px 16px 46px 11px;
+  margin-left: 44px;
+}
+contact-form{
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  /* padding: 50px 74px 40px 74px; */
+  /* background: hsl(217, 28%, 15%); */
+  border-radius: 5px;
+  position: absolute;
+  /* right: 500px;
+  transform: translateX(30%);
+  bottom: 350px;
+  transform: translateY(50%); */
 }
 
 ::-webkit-scrollbar {
