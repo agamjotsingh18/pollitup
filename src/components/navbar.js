@@ -73,18 +73,22 @@ export default function NavbarComponent() {
 }
 
 function Logo() {
-  const [mobile, setMobile] = useState(false);
+  // mobile field tells us if the scren dimensions corresponds to that of mobile
+  const [mobile, setMobile] = useState();
+
+  // Adding window resize handler using for setting mobile according to window width
 
   useEffect(() => {
     function handleResize() {
       const width = window.innerWidth;
-      console.log(width);
       if (width < 768) {
         setMobile(true);
       } else {
         setMobile(false);
       }
     }
+    // Calling the resize handler for initiating the mobile field when page is loaded
+    handleResize();
 
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
