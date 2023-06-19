@@ -12,6 +12,7 @@
         "@fortawesome/free-regular-svg-icons": "^5.15.3",
         "@fortawesome/free-solid-svg-icons": "^5.15.3",
         "@fortawesome/react-fontawesome": "^0.1.14",
+        "@primer/octicons-react": "^19.1.0",
         "@testing-library/jest-dom": "^5.11.9",
         "@testing-library/react": "^11.2.5",
         "@testing-library/user-event": "^12.8.3",
