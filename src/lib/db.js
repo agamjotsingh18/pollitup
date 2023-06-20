@@ -129,3 +129,55 @@ export const getUserDocs = async (colName, userId) => {
   });
   return docs;
 }
+
+// Get all the poll names of 
+export const getByPollName = async (colName,pollName) =>{
+  const snapshot = await db.collection(colName).get();
+  if (snapshot.empty) {
+    return [];
+  }
+
+  var docs = [];
+  snapshot.forEach(doc => {
+    docs.push({ ...doc.data(), id: doc.id });
+  });
+
+  var filteredData = [];
+  const regex = new RegExp(pollName, "i");
+  filteredData = docs.filter((element) =>regex.test(element.name))
+  return filteredData;
+}
+
+export const getByDescription = async (colName,description) =>{
+  const snapshot = await db.collection(colName).get();
+  if (snapshot.empty) {
+    return [];
+  }
+
+  var docs = [];
+  snapshot.forEach(doc => {
+    docs.push({ ...doc.data(), id: doc.id });
+  });
+
+  var filteredData = [];
+  const regex = new RegExp(description, "i");
+  filteredData = docs.filter((element) =>regex.test(element.description))
+  return filteredData;
+}
+
+export const getByQuestion = async (colName,question) =>{
+  const snapshot = await db.collection(colName).get();
+  if (snapshot.empty) {
+    return [];
+  }
+
+  var docs = [];
+  snapshot.forEach(doc => {
+    docs.push({ ...doc.data(), id: doc.id });
+  });
+
+  var filteredData = [];
+  const regex = new RegExp(question, "i");
+  filteredData = docs.filter((element) =>regex.test(element.question))
+  return filteredData;
+}
