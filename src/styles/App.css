@@ -103,3 +103,23 @@ footer{
     margin-top: 0;
   }
 }
+.filter-dropdown{
+background-color:#3182ce;
+border-color: #2a4365;
+color:white;
+border-radius: 3px;
+margin-right:30px;
+height:30px;
+}
+option:hover{
+  background-color:#c6e7fc
+}
+search-feature{
+  margin-bottom: 50px ;
+}
+.searchFeature{
+  height:100px;
+  display:flex;
+  align-items: center;
+  justify-content: center;
+}

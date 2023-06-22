@@ -2,16 +2,21 @@ import React from 'react';
 import { Map, Marker, Overlay } from 'pigeon-maps'
 
 import {
-    Box, 
+    Box,
     Heading,
     SimpleGrid,
     Container,
+    Input,
+    InputRightElement,
+    Button,
+    InputGroup
+
     //useToast
 } from "@chakra-ui/react";
 
 import Poll from '../components/poll';
 import Pollpopup from '../components/pollPopup';
-import { getCol } from '../lib/db.js';
+import { getCol, getByPollName, getByQuestion, getByDescription } from '../lib/db.js';
 import ProfileMarker from '../components/imgMarker';
 
 /* const containerStyle = {
@@ -24,9 +29,13 @@ import ProfileMarker from '../components/imgMarker';
     lng: -38.523
 }; */
 
-export default function Discover(){
+export default function Discover() {
 
     const [markers, setMarkers] = React.useState(null);
+    const [resultByPollName, setResultByPollName] = React.useState(null);
+    const [inputQuery, setInputQuery] = React.useState(null);
+    const [selectQuery, setSelectQuery] = React.useState("ByPollName");
+    const [searchResult, setSearchResult] = React.useState(null);
     //const [location, setLocation] = React.useState([]);
     //const toast = useToast();
 
@@ -35,6 +44,10 @@ export default function Discover(){
         async function fetchPolls() {
             setMarkers(await getCol("polls"));
         }
+        async function getPollByName() {
+            setResultByPollName(await getByPollName("polls", "t"));
+        }
+
         fetchPolls();
 
         /*if (navigator.geolocation) { //check if geolocation is available
@@ -53,23 +66,65 @@ export default function Discover(){
         
             })
         }*/
-    },[]);
+    }, []);
 
     const [post, setPost] = React.useState(null);
     const [showPopup, setShowPopup] = React.useState(false);
     const getProvider = (x, y, z) => `https://cartodb-basemaps-a.global.ssl.fastly.net/light_all/${z}/${x}/${y}.png`;
 
-    function handleClick(payload){
+    function handleClick(payload) {
         setPost(payload);
         setShowPopup(true);
     }
 
+    function handleInputChange(e) {
+        setInputQuery(e.target.value);
+        
+    }
 
-    if (markers){
+    function handleSelectChange(e) {
+        setSelectQuery(e.target.value);
+        
+    }
+
+    async function GetSearchResult() {
+        if (inputQuery !== null && selectQuery !== null) {
+            if (selectQuery == "ByPollName") setSearchResult(await getByPollName("polls", inputQuery))
+            else if (selectQuery == "ByQuestionName") setSearchResult(await getByQuestion("polls", inputQuery))
+            else setSearchResult(await getByDescription("polls", inputQuery));
+        }
+    }
+
+    
+    if (markers) {
         return (
             <Box align="center">
                 <Heading as="h1" m={12}>Discover</Heading>
                 {showPopup && <Pollpopup set={setShowPopup} data={post} />}
+                <div className='searchFeature'>
+                    <select className="filter-dropdown" title='Sort By' onChange={handleSelectChange}>
+                        <option value="ByPollName">By Poll Name</option>
+                        <option value="ByQuestionName">By Question Name</option>
+                        <option value="ByDescription">By Description</option>
+                    </select>
+                    <InputGroup size='md' width={300}>
+                    <Input value={inputQuery}
+                        placeholder='Search the polls' onChange={handleInputChange} />
+                    <InputRightElement width='4.5rem'>
+                        <Button h='1.75rem' size='sm' mr="1" onClick={GetSearchResult}>
+                            Search
+                        </Button>
+                    </InputRightElement>
+                    </InputGroup>
+                </div>
+                {searchResult != null ? <Container maxW="container.lg" mt={12}>
+                    <Heading>Search Results</Heading>
+                    <SimpleGrid p={8} columns={{ base: 1, md: 2, lg: 4 }} spacing={6}>
+                        {searchResult.slice(-8).map(result => <Poll /*pollvoting={true}*/ name={result.name} description={result.description} data={result} flag="discover" />)}
+                    </SimpleGrid>
+                </Container> : <> </>}
+                {searchResult === null && inputQuery!== null && <div>No results found</div>}
+
                 <Box w="90%" h="80vh" borderWidth="1px" borderRadius="lg" overflow="hidden">
                     <Map defaultCenter={[39.0831315, -77.2049467]} defaultZoom={12} width="100%" height="100%" provider={getProvider}>
                         {
@@ -82,7 +137,7 @@ export default function Discover(){
                                 </Overlay>
                             )
                         }
-                        
+
                     </Map>
                 </Box>
 
@@ -95,8 +150,8 @@ export default function Discover(){
             </Box>
         )
     }
-    else{
-        return(
+    else {
+        return (
             <></>
         )
     }
