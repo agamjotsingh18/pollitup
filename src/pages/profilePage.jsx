@@ -1,23 +1,23 @@
 import React from 'react';
 
-import { 
+import {
     Container,
     Box,
     Flex,
     Stack,
     Heading,
-    Avatar,
+    Avatar, AvatarBadge, AvatarGroup,
     Input,
     Textarea,
-    Text, 
+    Text,
     Button,
     useToast,
-    Modal, 
-    ModalOverlay, 
-    ModalContent, 
-    ModalHeader, 
-    ModalFooter, 
-    ModalBody, 
+    Modal,
+    ModalOverlay,
+    ModalContent,
+    ModalHeader,
+    ModalFooter,
+    ModalBody,
     ModalCloseButton,
     SimpleGrid,
     //UnorderedList
@@ -33,14 +33,15 @@ import { faShareAlt } from '@fortawesome/free-solid-svg-icons';
 import { faEdit } from '@fortawesome/free-solid-svg-icons';
 import Poll from "../components/poll";
 
-export default function Profile(props){
+export default function Profile(props) {
     const { user, loadingUser } = useAuth();
     const [userDoc, setUserDoc] = React.useState();
+    const [userData, setUserData] = React.useState();
     const { uid } = useParams()
 
     const [edit, setEdit] = React.useState(false);
     const [displayName, setDisplayName] = React.useState(''); //get from firebase
-    const [desc, setDesc] = React.useState("");
+    const [desc, setDesc] = React.useState('');
     const [showIconModal, setShowIconModal] = React.useState(false);
     const [pfpLink, setPfpLink] = React.useState('');
     const [polls, setPolls] = React.useState([]);
@@ -51,77 +52,52 @@ export default function Profile(props){
         if (!user) return;
 
         async function checkUserDoc() {
-            const userData = await getDoc('users', user.uid);
-            if (!userData || loadingUser) {
+            const userDatas = await getDoc('users', user.uid);
+            if (!userDatas) {
                 await addDoc('users', {
                     displayName: "",
                     description: "",
                     logo: ""
                 }, user.uid);
             }
+            setUserData(userDatas)
+            console.log(userDatas)
         }
         checkUserDoc();
 
         async function getPolls() {
             const userDocs = await getUserDocs('polls', user.uid);
             setPolls(userDocs);
-            setDisplayName(user.displayName)
+            // setDisplayName(user.displayName ? user.displayName : "");
             setUserDoc(user)
-            setPfpLink(user.pfpLink)
-            setPolls(user.polls)
-            setDesc(user.description)
+            // setPfpLink(user.pfpLink)
+            setPolls(userDocs);
+            // setDesc(user.description)
             console.log(userDocs)
         }
         getPolls();
     }, [user, loadingUser]);
 
-    async function saveData(){
+    async function saveData() {
+        let newDoc
+        console.log(pfpLink, displayName, desc);
+        newDoc = {
+            logo: pfpLink ? pfpLink : userData?.logo,
+            displayName: displayName ? displayName : userData?.displayName,
+            description: desc ? desc : userData?.description
+        }
 
-        setEdit(false);
-
-        const newDoc = {
-            ...userDoc,
-            displayName,
-            description: desc
-        };
         delete newDoc.id;
         await addDoc('users', newDoc, user.uid);
-        setUserDoc({ ...userDoc, displayName, description: desc });
+        setUserDoc({ newDoc });
+        setShowIconModal(false)
     }
 
-    async function savePfpLink(){
-        setShowIconModal(false);
-        const newDoc = {
-            ...userDoc,
-            logo: pfpLink
-        };
-        delete newDoc.id;
-        await addDoc('users', newDoc, user.uid);
-
-        setUserDoc({ ...userDoc, logo: pfpLink });
-    }
-
-    function handleDispChange(e){
-        if (e.target.value.length < 18){
-            setDisplayName(e.target.value);
-        }
-        else{
-            toast({
-                title: "Display name can only be 12 characters long",
-                status: "error",
-                isClosable: true,
-              })
-        }
-    }
-
-    function handleDescChange(e){
-        setDesc(e.target.value);
-    }
 
     let share = () => {
         let copyText = `${window.location.href}/` + user.uid;
-        
-        
+
+
 
         try {
             navigator.clipboard.writeText(copyText);
@@ -133,7 +109,7 @@ export default function Profile(props){
                 isClosable: true,
             })
         }
-        catch{
+        catch {
             toast({
                 title: "Error",
                 description: "Error copying to clipboard",
@@ -146,21 +122,20 @@ export default function Profile(props){
     return (
         <Container maxW="container.lg" align="center">
 
-            <Modal isOpen={showIconModal} onClose={()=>setShowIconModal(false)}>
+            <Modal isOpen={showIconModal} onClose={() => setShowIconModal(false)}>
                 <ModalOverlay />
                 <ModalContent>
-                <ModalHeader>Change Logo URL</ModalHeader>
-                <ModalCloseButton />
+                    <ModalHeader>Update Profile</ModalHeader>
+                    <ModalCloseButton />
                     <ModalBody>
-                        <Box p={4} align="center">
-                            <Avatar size="xl" src={pfpLink}/>
-                        </Box>
-                        <Input placeholder="Logo URL" value={pfpLink} onChange={(e)=>setPfpLink(e.target.value)} />
+                        <Input mb={2} placeholder="Logo URL" value={pfpLink} onChange={(e) => setPfpLink(e.target.value)} />
+                        <Input mb={2} placeholder="Name" value={displayName} onChange={(e) => setDisplayName(e.target.value)} />
+                        <Textarea mb={2} placeholder="Description" value={desc} onChange={(e) => setDesc(e.target.value)} />
                     </ModalBody>
-    
+
                     <ModalFooter>
-                        <Button colorScheme="blue" mr={3} onClick={savePfpLink}>
-                            Submit
+                        <Button colorScheme="blue" mr={3} onClick={saveData}>
+                            Update
                         </Button>
                     </ModalFooter>
                 </ModalContent>
@@ -171,42 +146,47 @@ export default function Profile(props){
                 <Stack p={4} borderWidth="1px" borderRadius="lg" overflow="hidden">
                     <Flex justify>
                         <Box p={4}>
-                            <Avatar size="xl" src={userDoc ? userDoc.logo : ""} onClick={()=>setShowIconModal(true)} />
+                            <Avatar size="xl" src={userData?.logo} />
                         </Box>
                         <Stack flex={1} m={4}>
                             <Stack direction={{ base: "column", md: "row" }}>
                                 <Box w={{ base: "100%", md: "50%" }} m={2}>
                                     <Text align="left">Display name</Text>
                                 </Box>
-                                <Input value={displayName} placeholder="Display name" disabled={!edit} onChange={(e)=>handleDispChange(e)} />
+                                <Box w={{ base: "100%", md: "50%" }} m={2}>
+                                    <Text align="left">{userData?.displayName}</Text>
+                                </Box>
                             </Stack>
                             <Stack direction={{ base: "column", md: "row" }}>
                                 <Box w={{ base: "100%", md: "50%" }} m={2}>
                                     <Text align="left">Description</Text>
                                 </Box>
-                                <Textarea value={desc} placeholder="Description" rows="3" disabled={!edit} onChange={(e)=>handleDescChange(e)} />
+                                <Box w={{ base: "100%", md: "50%" }} m={2}>
+                                    <Text align="left">{userData?.description}</Text>
+                                </Box>
+                                {/* <Textarea value={desc} placeholder="Description" rows="3" disabled={!edit} onChange={(e) => handleDescChange(e)} /> */}
                             </Stack>
                         </Stack>
                     </Flex>
                     <Flex justify="space-between">
-                        {((!loadingUser) && ((uid === user?.uid) || (uid === undefined)))&& 
+                        {((!loadingUser) && ((uid === user?.uid) || (uid === undefined))) &&
                             <>
-                                
-                                <Button colorScheme="gray" leftIcon={<FontAwesomeIcon icon={faEdit}/>} onClick={()=>setEdit(true)}>Edit</Button>
-                                {edit &&<Button colorScheme="blue" onClick={saveData}>Save</Button>}
-                                <Button colorScheme="gray" variant="solid" onClick = {share} leftIcon={<FontAwesomeIcon icon={faShareAlt}/>}>Share</Button>
+
+                                <Button colorScheme="gray" leftIcon={<FontAwesomeIcon icon={faEdit} />} onClick={() => setShowIconModal(true)}>Edit</Button>
+                                {edit && <Button colorScheme="blue" onClick={saveData}>Save</Button>}
+                                <Button colorScheme="gray" variant="solid" onClick={share} leftIcon={<FontAwesomeIcon icon={faShareAlt} />}>Share</Button>
 
                             </>
                         }
                     </Flex>
-                </Stack><br/>
+                </Stack><br />
             </Container>
-            
+
             <Container maxW="container.lg" my={4}>
-                <Heading size="lg" align = "left" fontWeight="bold">Polls</Heading>
+                <Heading size="lg" align="left" fontWeight="bold">Polls</Heading>
                 <SimpleGrid p={4} columns={{ base: 0, md: 2, lg: 4 }} spacing={6}>
-                    {polls && polls.map(poll => 
-                        <Poll name={poll.name} description={poll.description} data={poll} />
+                    {polls && polls.map(poll =>
+                        <Poll name={poll.name} description={poll.description} data={poll} id={poll.id} polls={polls} setPolls={setPolls} />
                     )}
                 </SimpleGrid>
             </Container>
