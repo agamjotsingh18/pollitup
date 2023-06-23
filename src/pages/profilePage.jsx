@@ -91,6 +91,12 @@ export default function Profile(props) {
         await addDoc('users', newDoc, user.uid);
         setUserDoc({ newDoc });
         setShowIconModal(false)
+        setUserData({
+            ...userData,
+            logo: pfpLink ? pfpLink : userData?.logo,
+            displayName: displayName ? displayName : userData?.displayName,
+            description: desc ? desc : userData?.description
+        })
     }
 
 
