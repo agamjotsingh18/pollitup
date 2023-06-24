@@ -159,7 +159,7 @@ export default function Profile(props) {
                                 <Box w={{ base: "100%", md: "50%" }} m={2}>
                                     <Text align="left">Display name</Text>
                                 </Box>
-                                <Box w={{ base: "100%", md: "50%" }} m={2}>
+                                <Box w={{ base: "100%", md: "50%" }} m={2} pt={2}>
                                     <Text align="left">{userData?.displayName}</Text>
                                 </Box>
                             </Stack>
@@ -167,7 +167,7 @@ export default function Profile(props) {
                                 <Box w={{ base: "100%", md: "50%" }} m={2}>
                                     <Text align="left">Description</Text>
                                 </Box>
-                                <Box w={{ base: "100%", md: "50%" }} m={2}>
+                                <Box w={{ base: "100%", md: "50%" }} m={2} pt={2}>
                                     <Text align="left">{userData?.description}</Text>
                                 </Box>
                                 {/* <Textarea value={desc} placeholder="Description" rows="3" disabled={!edit} onChange={(e) => handleDescChange(e)} /> */}
