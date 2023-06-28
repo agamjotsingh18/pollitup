@@ -123,3 +123,9 @@ search-feature{
   align-items: center;
   justify-content: center;
 }
+
+.error{
+  color: red;
+  font-size: 16px;
+  text-align: left;
+}
