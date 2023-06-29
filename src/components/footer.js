@@ -21,6 +21,10 @@ const Footer = () => {
   const bgColor = useColorModeValue('gray.100', 'gray.900');
   const buttonColorScheme = colorMode === 'light' ? 'purple' : 'blue';
 
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   return (
     <Box as="footer" bg={bgColor} py={8} px={4}>
       <Stack
@@ -37,13 +41,29 @@ const Footer = () => {
             Sitemap
           </Text>
           <VStack spacing={2} align="flex-start" color="gray.500">
-            <Link as={RLink} to="#" color="blue.600">
+            <Link
+              as={RLink}
+              to="#"
+              color="blue.600"
+              onClick={scrollToTop}
+              _hover={{ textDecoration: 'none', transform: 'scale(1.05)' }}
+            >
               Home
             </Link>
-            <Link as={RLink} to="/discover" color="blue.600">
+            <Link
+              as={RLink}
+              to="/discover"
+              color="blue.600"
+              _hover={{ textDecoration: 'none', transform: 'scale(1.05)' }}
+            >
               Discover
             </Link>
-            <Link as={RLink} to="/testimonials" color="blue.600">
+            <Link
+              as={RLink}
+              to="/testimonials"
+              color="blue.600"
+              _hover={{ textDecoration: 'none', transform: 'scale(1.05)' }}
+            >
               Testimonials
             </Link>
           </VStack>
@@ -53,10 +73,20 @@ const Footer = () => {
             Log In/Sign Up
           </Text>
           <VStack spacing={2} align="flex-start" color="gray.500">
-            <Link as={RLink} to="/login" color="blue.600">
+            <Link
+              as={RLink}
+              to="/login"
+              color="blue.600"
+              _hover={{ textDecoration: 'none', transform: 'scale(1.05)' }}
+            >
               Log In
             </Link>
-            <Link as={RLink} to="/register" color="blue.600">
+            <Link
+              as={RLink}
+              to="/register"
+              color="blue.600"
+              _hover={{ textDecoration: 'none', transform: 'scale(1.05)' }}
+            >
               Register
             </Link>
           </VStack>
@@ -71,13 +101,21 @@ const Footer = () => {
             colorScheme={buttonColorScheme}
             color={colorMode === 'light' ? 'white' : 'gray.800'}
             cursor="pointer"
-            _hover={{ textDecoration: 'none' }}
+            _hover={{
+              textDecoration: 'none',
+              transform: 'scale(1.05)',
+              transition: 'transform 0.3s ease',
+            }}
           >
             Follow on Github
           </Button>
-        <Text fontSize="md" alignSelf="center" py={8}>
-          &copy; {new Date().getFullYear()} PollItUp - All Rights Reserved
-        </Text>
+          <Text
+            fontSize="md"
+            alignSelf="center"
+            py={8}
+          >
+            &copy; {new Date().getFullYear()} PollItUp - All Rights Reserved
+          </Text>
         </VStack>
       </Stack>
 
@@ -93,9 +131,13 @@ const Footer = () => {
         <Text fontSize="md" alignSelf="center">
           Made with ❤️ by{' '}
           <Link
-            href="https://github.com/MA-Ahmad"
+            href="https://github.com/agamjotsingh18"
             textDecoration="underline"
-            _hover={{ textDecoration: 'none' }}
+            _hover={{
+              textDecoration: 'none',
+              transform: 'scale(1.05)',
+              transition: 'transform 0.3s ease',
+            }}
           >
             Agamjot
           </Link>
