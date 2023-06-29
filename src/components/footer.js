@@ -153,9 +153,9 @@ const Footer = () => {
         </VStack>
       </Stack>
 
-      <Divider my={6} borderColor="gray.300" />
+      <Divider borderColor="gray.300" />
 
-      <Stack
+      {/* <Stack
         direction={{ base: 'column', md: 'row' }}
         spacing={3}
         justify="center"
@@ -180,7 +180,7 @@ const Footer = () => {
             Agamjot
           </Link>
         </Text>
-      </Stack>
+      </Stack> */}
     </Box>
   );
 };
