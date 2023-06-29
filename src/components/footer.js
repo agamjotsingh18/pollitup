@@ -13,16 +13,30 @@ import {
 } from '@chakra-ui/react';
 import { FaGithub } from 'react-icons/fa';
 import { FiTwitter } from 'react-icons/fi';
-import { Link as RLink } from 'react-router-dom';
+import { Link as RLink, useLocation } from 'react-router-dom';
 import logo from '../assets/logo.png';
 
 const Footer = () => {
   const { colorMode } = useColorMode();
   const bgColor = useColorModeValue('gray.100', 'gray.900');
   const buttonColorScheme = colorMode === 'light' ? 'purple' : 'blue';
+  const textColor = useColorModeValue('gray.600', 'gray.300');
+
+  const location = useLocation();
+  const isHomePage = location.pathname === '/';
 
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const handleHomeClick = () => {
+    if (isHomePage) {
+      scrollToTop();
+    }
+  };
+
+  const handleLinkClick = () => {
+    scrollToTop();
   };
 
   return (
@@ -37,7 +51,7 @@ const Footer = () => {
           <Image w="100px" src={logo} alt="PollitUp" />
         </Box>
         <VStack spacing={4} align="flex-start" flexGrow={1}>
-          <Text fontSize="md" fontWeight="bold" color="gray.600">
+          <Text fontSize="md" fontWeight="bold" color={textColor}>
             Sitemap
           </Text>
           <VStack spacing={2} align="flex-start" color="gray.500">
@@ -46,15 +60,22 @@ const Footer = () => {
               to="#"
               color="blue.600"
               onClick={scrollToTop}
-              _hover={{ textDecoration: 'none', transform: 'scale(1.05)' }}
+              _hover={{ textDecoration: 'none', transform: 'scale(1.05)'}}
+              _focus={{
+                outline: 'none',
+              }}
             >
               Home
             </Link>
             <Link
               as={RLink}
               to="/discover"
+              onClick={handleLinkClick}
               color="blue.600"
-              _hover={{ textDecoration: 'none', transform: 'scale(1.05)' }}
+              _hover={{ textDecoration: 'none', transform: 'scale(1.05)'}}
+              _focus={{
+                outline: 'none',
+              }}
             >
               Discover
             </Link>
@@ -62,14 +83,18 @@ const Footer = () => {
               as={RLink}
               to="/testimonials"
               color="blue.600"
+              onClick={handleLinkClick}
               _hover={{ textDecoration: 'none', transform: 'scale(1.05)' }}
+              _focus={{
+                outline: 'none',
+              }}
             >
               Testimonials
             </Link>
           </VStack>
         </VStack>
         <VStack spacing={4} align="flex-start" flexGrow={1} ml="auto">
-          <Text fontSize="md" fontWeight="bold" color="gray.600">
+          <Text fontSize="md" fontWeight="bold" color={textColor}>
             Log In/Sign Up
           </Text>
           <VStack spacing={2} align="flex-start" color="gray.500">
@@ -77,7 +102,11 @@ const Footer = () => {
               as={RLink}
               to="/login"
               color="blue.600"
+              onClick={handleLinkClick}
               _hover={{ textDecoration: 'none', transform: 'scale(1.05)' }}
+              _focus={{
+                outline: 'none',
+              }}
             >
               Log In
             </Link>
@@ -85,7 +114,11 @@ const Footer = () => {
               as={RLink}
               to="/register"
               color="blue.600"
+              onClick={handleLinkClick}
               _hover={{ textDecoration: 'none', transform: 'scale(1.05)' }}
+              _focus={{
+                outline: 'none',
+              }}
             >
               Register
             </Link>
@@ -106,6 +139,9 @@ const Footer = () => {
               transform: 'scale(1.05)',
               transition: 'transform 0.3s ease',
             }}
+            _focus={{
+              outline: 'none',
+            }}
           >
             Follow on Github
           </Button>
@@ -113,6 +149,7 @@ const Footer = () => {
             fontSize="md"
             alignSelf="center"
             py={8}
+            color={textColor}
           >
             &copy; {new Date().getFullYear()} PollItUp - All Rights Reserved
           </Text>
@@ -126,17 +163,21 @@ const Footer = () => {
         spacing={3}
         justify="center"
         align="center"
-        color="gray.600"
+        color={textColor}
       >
         <Text fontSize="md" alignSelf="center">
           Made with ❤️ by{' '}
           <Link
+          target="_blank"
             href="https://github.com/agamjotsingh18"
             textDecoration="underline"
             _hover={{
               textDecoration: 'none',
               transform: 'scale(1.05)',
               transition: 'transform 0.3s ease',
+            }}
+            _focus={{
+              outline: 'none',
             }}
           >
             Agamjot
