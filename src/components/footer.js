@@ -1,7 +1,6 @@
 import {
   Box,
   Stack,
-  HStack,
   VStack,
   Link,
   Divider,
@@ -12,8 +11,7 @@ import {
   useColorMode,
 } from '@chakra-ui/react';
 import { FaGithub } from 'react-icons/fa';
-import { FiTwitter } from 'react-icons/fi';
-import { Link as RLink, useLocation } from 'react-router-dom';
+import { Link as RLink, useLocation, useHistory } from 'react-router-dom';
 import logo from '../assets/logo.png';
 
 const Footer = () => {
@@ -23,6 +21,7 @@ const Footer = () => {
   const textColor = useColorModeValue('gray.600', 'gray.300');
 
   const location = useLocation();
+  const history = useHistory();
   const isHomePage = location.pathname === '/';
 
   const scrollToTop = () => {
@@ -31,6 +30,9 @@ const Footer = () => {
 
   const handleHomeClick = () => {
     if (isHomePage) {
+      scrollToTop();
+    } else {
+      history.push('/');
       scrollToTop();
     }
   };
@@ -59,8 +61,8 @@ const Footer = () => {
               as={RLink}
               to="#"
               color="blue.600"
-              onClick={scrollToTop}
-              _hover={{ textDecoration: 'none', transform: 'scale(1.05)'}}
+              onClick={handleHomeClick}
+              _hover={{ textDecoration: 'none', transform: 'scale(1.05)' }}
               _focus={{
                 outline: 'none',
               }}
@@ -72,7 +74,7 @@ const Footer = () => {
               to="/discover"
               onClick={handleLinkClick}
               color="blue.600"
-              _hover={{ textDecoration: 'none', transform: 'scale(1.05)'}}
+              _hover={{ textDecoration: 'none', transform: 'scale(1.05)' }}
               _focus={{
                 outline: 'none',
               }}
@@ -145,12 +147,7 @@ const Footer = () => {
           >
             Follow on Github
           </Button>
-          <Text
-            fontSize="md"
-            alignSelf="center"
-            py={8}
-            color={textColor}
-          >
+          <Text fontSize="md" alignSelf="center" py={8} color={textColor}>
             &copy; {new Date().getFullYear()} PollItUp - All Rights Reserved
           </Text>
         </VStack>
@@ -168,7 +165,7 @@ const Footer = () => {
         <Text fontSize="md" alignSelf="center">
           Made with ❤️ by{' '}
           <Link
-          target="_blank"
+            target="_blank"
             href="https://github.com/agamjotsingh18"
             textDecoration="underline"
             _hover={{
