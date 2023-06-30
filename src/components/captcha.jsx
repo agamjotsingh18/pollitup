@@ -9,7 +9,6 @@ import {
     Button,
     Textarea
   } from '@chakra-ui/react'
-
 const Captcha = ({message,trackState}) => {
   const [user, setUser] = useState({
     username:""
