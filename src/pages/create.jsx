@@ -8,6 +8,7 @@ import firebase from 'firebase/app';
 import 'firebase/auth';
 import { useAuth } from '../lib/auth';
 import { addDoc, getDoc, getUserRef, db } from '../lib/db';
+import validation from '../assets/validation';
 
 export default function Create() {
     initFirebase();
@@ -19,6 +20,9 @@ export default function Create() {
         name: "",
         description: "",
         question: "",
+    })
+    let [error, setError] = useState({
+        name: true, description: true, question: true
     })
     let [loading, setLoading] = useState(false);
     let [answers, setAnswers] = useState([]);
@@ -46,22 +50,25 @@ export default function Create() {
         checkUserDoc();
     }, [user, loadingUser]);
 
-    let handleChange = (e, param) => {
-        if (param === "name") {
-            setForm({ name: e.target.value, description: form.description, question: form.question });
-        }
-        else if (param === "description") {
-            setForm({ name: form.name, description: e.target.value, question: form.question })
-        }
-        else {
-            setForm({ name: form.name, description: form.description, question: e.target.value });
-        }
-    }
+    let handleChange = (e) => {
+        const errors  = validation[e.target.name](e.target.value);
+        setForm((prev)=>{
+            return {...prev, [e.target.name]: e.target.value}
+        })
+        setError((prev)=>{
+            return {...prev, ...errors}
+        })
+     }
+
 
     let handleQuestion = (e, num) => {
         let mutable = [...answers];
         mutable[num] = e.target.value;
         setAnswers(mutable);
+        let error = validation.choice(e.target.value);
+        setError((prev)=>{
+            return {...prev, [e.target.name]: error}
+        })
     }
 
     let removeChoice = (num) => {
@@ -69,10 +76,16 @@ export default function Create() {
         console.log(num);
         mutable.splice(num, 1);
         setAnswers(mutable);
+        setError((prev)=>{
+            return {...prev, ["Choice"+(num+1)]:false}
+        })
     }
 
     let addChoice = () => {
         setAnswers([...answers, ""]);
+        setError((previous)=>{
+            return {...previous, ["Choice"+(answers.length+1)]: "error"}
+        })
     }
 
     function checkForDuplicates(array) {
@@ -83,29 +96,27 @@ export default function Create() {
         return new Set(mutable).size !== mutable.length
     }
 
-    function checkForEmpty(array) {
-        let nonEmptyarray = []
-        array.forEach((str) => {
-            if (str.length > 0) {
-                nonEmptyarray.push(str)
-            }
-        })
-        return nonEmptyarray.length !== array.length
-    }
-
     let submit = async () => {
         setLoading(true);
         let values = form;
         values.type = type;
-        if (values.name === "" || values.description === "" || values.question === "") {
+      
+        let submitable = true;
+        Object.values(error).forEach(e=>{
+            if(e === true || e === "error"){
+                submitable = false;
+                return;
+            }
+        })
+        if(submitable === false){
             toast({
                 title: "Error",
-                description: "Please fill out all fields of the form",
+                description: "Please fill out all fields of the form with valid data",
                 status: "error",
                 duration: 5000,
                 isClosable: true,
             });
-            setLoading(false);
+            setLoading(false)
             return undefined;
         }
         if (values.type !== "text" && answers.length < 2) {
@@ -141,22 +152,11 @@ export default function Create() {
             setLoading(false);
             return undefined;
         }
-        else if (values.type === "multipleChoice" && checkForEmpty(answers)) {
-            console.log("Error found")
-            toast({
-                title: "Error",
-                description: "Please fill all the answers!",
-                status: "error",
-                duration: 5000,
-                isClosable: true,
-            });
-            setLoading(false);
-            return undefined;
-        }
         if (type !== 'text') {
             values.choices = [...answers];
             values.selectMultiple = multiple;
         }
+
 
         if (navigator.geolocation) { //check if geolocation is available
             await navigator.geolocation.getCurrentPosition(async function (pos) {
@@ -212,21 +212,25 @@ export default function Create() {
 
                 <FormControl id="name" isRequired>
                     <FormLabel>Poll Name</FormLabel>
-                    <Input value={form.name} onChange={(e) => handleChange(e, "name")} placeholder="Poll name" autoComplete="off" />
+                    <Input name='name' value={form.name} onChange={handleChange} placeholder="Poll name" autoComplete="off" />
+                    {(error.name && error.nameError)? <p className='error'>{error.nameError}</p>:null}
                 </FormControl><br />
                 <FormControl id="description" isRequired>
                     <FormLabel>Description</FormLabel>
                     <Textarea
+                        name='description'
                         value={form.description}
-                        onChange={(e) => handleChange(e, "description")}
+                        onChange={handleChange}
                         placeholder="Enter your description here"
                         autoComplete="off"
                     />
+                     {(error.description && error.descriptionError)? <p className='error'>{error.descriptionError}</p>:null}
                 </FormControl><br />
 
                 <FormControl id="question" isRequired>
                     <FormLabel>Question</FormLabel>
-                    <Input value={form.question} onChange={(e) => handleChange(e, "question")} placeholder="Question" autoComplete="off" />
+                    <Input name='question' value={form.question} onChange={handleChange} placeholder="Question" autoComplete="off" />
+                    {(error.question && error.questionError)? <p className='error'>{error.questionError}</p>:null}
                 </FormControl><br />
 
                 <FormControl id="type" isRequired>
@@ -239,9 +243,11 @@ export default function Create() {
 
                 {answers.map((answer, index) =>
                     <>
-                        <FormControl id={"Choice " + (index + 1)} isRequired>
+                        <FormControl key={index} id={"Choice " + (index + 1)} isRequired>
                             <FormLabel><FontAwesomeIcon style={{ display: "inline", textAlign: "right", padding: "none" }} className="deleteIcon" onClick={() => removeChoice(index)} icon={faTimes} /> &nbsp; {"Choice " + (index + 1)}</FormLabel>
-                            <Input disabled={type === "text"} value={answer} onChange={(e) => handleQuestion(e, index)} placeholder={"Choice " + (index + 1)} />
+                            <Input name={"Choice"+(index+1)} disabled={type === "text"} value={answer} onChange={(e) => handleQuestion(e, index)} placeholder={"Choice " + (index + 1)} />
+                            {error["Choice"+(index+1)] !== "error" && error["Choice"+(index+1)] !== false? <p className='error'>Choice must be atlest 3 characters long</p>: null}
+
                         </FormControl>
                         <br />
                     </>
