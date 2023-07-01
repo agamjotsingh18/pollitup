@@ -31,6 +31,7 @@ import {
 import { FaQuoteRight } from 'react-icons/fa';
 import { db, getCol } from '../lib/db';
 import { useAuth } from '../lib/auth';
+import { useRef } from 'react';
 
 
 const Testimonials = () => {
@@ -49,17 +50,52 @@ const Testimonials = () => {
         const fetchTestimonials = async () => {
             setTestimonials(await getCol("testimonials"))
         }
+
         fetchTestimonials()
     }, [])
 
 
+    const reviewHandleClick = async () => {
+        let updateTestimonial = testimonials.filter((testimonial) => testimonial.userId === user.uid)
+        if (updateTestimonial[0]) {
+            onOpen();
+            setReview(updateTestimonial[0].review)
+        } else {
+            onOpen();
+        }
+    }
+
+
     const addReview = async () => {
-        const response = await db.collection("testimonials").add({ name, review });
-        const documentId = response.id;
-        const document = await db.collection("testimonials").doc(documentId).get();
-        const data = document.data();
-        setTestimonials([...testimonials, data]);
-        onClose()
+
+        let updateTestimonial = testimonials.filter((testimonial) => testimonial.userId === user.uid)
+        if (updateTestimonial[0]) {
+            const response = await db.collection("testimonials").doc(updateTestimonial[0].id).update({
+                review: review
+            })
+            const index = testimonials.findIndex(testimonial => testimonial.userId === user.uid);
+            if (index !== -1) {
+                const newTestimonials = [...testimonials]
+                newTestimonials[index] = {...newTestimonials[index], review: review}
+                setTestimonials(newTestimonials)
+            }
+            onClose()
+        } else if (!updateTestimonial[0]) {
+            let userInfo = await db.collection("users").doc(user.uid).get();
+            userInfo = userInfo.data();
+            if (!userInfo.displayName) {
+                alert('Please update your name on your profile first')
+            } else {
+                const response = await db.collection("testimonials").add({ userId: user.uid, name: userInfo.displayName, review });
+                const documentId = response.id;
+                const document = await db.collection("testimonials").doc(documentId).get();
+                const data = document.data();
+                setTestimonials([...testimonials, data]);
+                onClose()
+            }
+        }
+
+
     }
 
     return (
@@ -124,7 +160,7 @@ const Testimonials = () => {
 
 
             {/* Modal Component */}
-            {(user && !loadingUser) ? <Button onClick={onOpen} width="50%" ml="25%" color="blue.400" fontWeight="bold">Write Your Review</Button> :
+            {(user && !loadingUser) ? <Button onClick={reviewHandleClick} width="50%" ml="25%" color="blue.400" fontWeight="bold">Write Your Review</Button> :
                 <Button onClick={() => alert('Login/Register to add reviews')} width="50%" ml="25%" color="blue.400" fontWeight="bold">Write Your Review</Button>}
 
             <Modal
@@ -138,12 +174,9 @@ const Testimonials = () => {
                     <ModalHeader>Add Your Review</ModalHeader>
                     <ModalCloseButton />
                     <ModalBody pb={6}>
-                        <FormControl>
-                            <Input ref={initialRef} placeholder='Name' onChange={(e) => setName(e.target.value)} />
-                        </FormControl>
 
                         <FormControl mt={4}>
-                            <Textarea placeholder='Add Your Review' onChange={(e) => setReview(e.target.value)} />
+                            <Textarea placeholder='Add Your Review' onChange={(e) => setReview(e.target.value)} value={review} />
                         </FormControl>
                     </ModalBody>
 
