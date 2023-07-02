@@ -95,6 +95,7 @@ const Captcha = ({ message, trackState }) => {
             textAlign="center"
             rows="1"
             resize="none"
+            unselectable="on"
             readOnly
           />
           <Input
