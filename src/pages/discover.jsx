@@ -111,10 +111,13 @@ export default function Discover() {
                     <Input value={inputQuery}
                         placeholder='Search the polls' onChange={handleInputChange} />
                     <InputRightElement width='4.5rem'>
-                        <Button h='1.75rem' size='sm' mr="1" onClick={GetSearchResult}>
+                        <Button h='2.3rem' size='sm' mr="1" onClick={GetSearchResult}>
                             Search
                         </Button>
                     </InputRightElement>
+                    {/* <Button colorScheme='blue' h='2.3rem' size='md' mr="1" onClick={GetSearchResult}>
+                            Search
+                    </Button> */}
                     </InputGroup>
                 </div>
                 {searchResult != null ? <Container maxW="container.lg" mt={12}>
