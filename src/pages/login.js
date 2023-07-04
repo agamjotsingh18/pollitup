@@ -22,20 +22,44 @@ import {
   useToast,
 } from '@chakra-ui/react';
 import Link from '../components/link';
+import validation from '../assets/validation';
 
 export default function LoginPage() {
   initFirebase();
   const toast = useToast();
   const { user, loadingUser } = useAuth();
-  const [email, setEmail] = React.useState("");
-  const [password, setPassword] = React.useState("");
+  const [loginForm, setLoginForm] = React.useState({
+    email: "",
+    password:""
+  })
+  const [error, setError] = React.useState({ email: true, password: true})
 
   React.useEffect(() => {
     if (user && !loadingUser) window.location.href = '/';
   }, [user, loadingUser]);
 
+  const handleChange = (e)=>{
+    const {name, value} = e.target;
+    setLoginForm((prev)=>{
+      return {...prev, [name]: value}
+    })
+    console.log(name)
+    const errorMessage = validation[name](value);
+    setError((prev)=>{
+      return {...prev, ...errorMessage};
+    })
+  }
+
   async function signIn() {
-    await firebase.auth().signInWithEmailAndPassword(email, password)
+    let submitable = true;
+    Object.values(error).forEach((err)=>{
+     if(err !== false){
+       submitable = false;
+       return;
+     }
+    })
+    if(submitable){
+    await firebase.auth().signInWithEmailAndPassword(loginForm.email, loginForm.password)
     .then((u) => { // u.user.uid
       window.location.href = '/';
     })
@@ -48,6 +72,15 @@ export default function LoginPage() {
         isClosable: true,
       });
     });
+  }else{
+    return toast({
+      title: "Error",
+      description: "Please fill all Fields with Valid Data.",
+      status: "error",
+      duration: 5000,
+      isClosable: true,
+    });
+  }
   }
 
   async function signInWithGoogle() {
@@ -105,7 +138,7 @@ export default function LoginPage() {
             shadow="base"
             rounded={{ sm: 'lg' }}
           >
-            <LoginForm email = {email} setEmail = {setEmail} signIn = {signIn} password = {password} setPassword = {setPassword}/>
+            <LoginForm email = {loginForm.email} signIn = {signIn} password = {loginForm.password} change={handleChange} errorObj={error}/>
             <DividerWithText mt="6">or continue with</DividerWithText>
             <SimpleGrid mt="6" columns={1} spacing="3">
               <Button onClick={signInWithGoogle} color="currentColor" variant="outline">
