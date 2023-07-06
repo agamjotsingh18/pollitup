@@ -52,7 +52,7 @@ export default function Profile(props) {
         if (!user) return;
 
         async function checkUserDoc() {
-            const userDatas = await getDoc('users', user.uid);
+            const userDatas = await getDoc('users', uid? uid : user.uid);
             if (!userDatas) {
                 await addDoc('users', {
                     displayName: "",
