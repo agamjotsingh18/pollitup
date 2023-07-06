@@ -1,4 +1,4 @@
-import React from "react";
+import React, { lazy, Suspense } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { useAuth } from "./lib/auth";
 import { Box } from "@chakra-ui/react";
@@ -10,22 +10,24 @@ import Navbar from "./components/navbar";
 import Footer from "./components/footer";
 
 // Pages
-import Dashboard from "./pages/dashboard";
-import Login from "./pages/login";
-import Register from "./pages/register";
-import Logout from "./pages/logout";
-import Create from "./pages/create";
-import Testimonials from "./pages/testimonials";
-import Profile from "./pages/profilePage";
-import NotFound from "./pages/notFound";
-import ReportIssue from "./pages/reportIssue";
-import Contact from "./pages/contact";
-import PollResults from "./pages/pollResults";
-import Discover from "./pages/discover";
-import Homepage from "./pages/homePage";
-import ForgotPassEmail from "./pages/ForgotPassEmail";
-import EmailSentPage from "./pages/emailSent";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
+
+const Dashboard = lazy(() => import("./pages/dashboard"));
+const Login = lazy(() => import("./pages/login"));
+const Register = lazy(() => import("./pages/register"));
+const Logout = lazy(() => import("./pages/logout"));
+const Create = lazy(() => import("./pages/create"));
+const Testimonials = lazy(() => import("./pages/testimonials"));
+const Profile = lazy(() => import("./pages/profilePage"));
+const NotFound = lazy(() => import("./pages/notFound"));
+const ReportIssue = lazy(() => import("./pages/reportIssue"));
+const Contact = lazy(() => import("./pages/contact"));
+const PollResults = lazy(() => import("./pages/pollResults"));
+const Discover = lazy(() => import("./pages/discover"));
+const Homepage = lazy(() => import("./pages/homePage"));
+const ForgotPassEmail = lazy(() => import("./pages/ForgotPassEmail"));
+const EmailSentPage = lazy(() => import("./pages/emailSent"));
+
 
 function App() {
   const { user, loadingUser } = useAuth();
@@ -43,6 +45,7 @@ function App() {
                   timeout={300}
                   classNames="fade"
                 >
+                  <Suspense fallback={<div> ... </div>}>
                   <Switch location={location}>
                     <Route
                       exact
@@ -75,6 +78,7 @@ function App() {
                     {/* NOT FOUND */}
                     <Route component={NotFound} />
                   </Switch>
+                  </Suspense>
                 </CSSTransition>
               </TransitionGroup>
             )}
