@@ -1,4 +1,4 @@
-const emailRegex = /^\w+(?:[\.-]\w+)*@(?:gmail\.com|yahoo\.com|hotmail\.com|aol\.com|outlook\.com)$/;
+const emailRegex = /\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}\b/;
 const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[@$%#^&*])(?=.*[0-9]).{8,}$/;
 
 const validation = {
