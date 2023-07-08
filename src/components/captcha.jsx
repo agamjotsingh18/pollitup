@@ -104,7 +104,8 @@ const Captcha = ({ message, trackState }) => {
             name="username"
             id="inputType"
             onChange={handleCaptcha}
-            autoComplete="off" />
+            autoComplete="off"
+            required={true} />
           <InputRightAddon><FiRefreshCcw
             onClick={onRegenerate} disabled={trackState} cursor="pointer" /></InputRightAddon>
         </InputGroup>

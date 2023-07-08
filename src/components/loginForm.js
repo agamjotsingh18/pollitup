@@ -7,9 +7,11 @@ export const LoginForm = (props) => {
       <Stack spacing="6">
         <FormControl id="email">
           <FormLabel>Email address</FormLabel>
-          <Input value={props.email} onChange={e => props.setEmail(e.target.value)} name="email" type="email" autoComplete="off" required />
+          <Input value={props.email} onChange={props.change} name="email" type="email" autoComplete="off" required />
+          {(props.errorObj.email && props.errorObj.emailError)? <p className='error'>{props.errorObj.emailError}</p>:null}
         </FormControl>
-        <PasswordField password = {props.password} setPassword = {props.setPassword} />
+        <PasswordField value = {props.password} name="password" id="password" onChange = {props.change} />
+        {(props.errorObj.password && props.errorObj.passwordError)? <p className='error' style={{textAlign: "center"}}>{props.errorObj.passwordError}</p>:null}
 	<Link href="/forgot-password" fontSize="sm" style={{position : "relative" , textAlign : "right" }} > Forgot password? </Link>
         <Button type="submit" colorScheme="blue" size="lg" fontSize="md" onClick = {props.signIn}>
           Log in

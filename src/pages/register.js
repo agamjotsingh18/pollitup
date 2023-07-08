@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import initFirebase from '../lib/firebase';
 import firebase from 'firebase/app';
@@ -22,30 +22,48 @@ import {
   useToast,
 } from '@chakra-ui/react';
 import Link from '../components/link';
+import validation from '../assets/validation';
 
 export default function RegisterPage() {
   initFirebase();
   const toast = useToast();
   const { user, loadingUser } = useAuth();
-  const [email, setEmail] = React.useState("");
-  const [password, setPassword] = React.useState("");
-  const [password2, setPassword2] = React.useState("");
+  const [register, setRegister] = React.useState({
+    email: "",
+    password: "",
+    password2: ""
+  });
+  const [error, setError] = useState({
+    email: true, password: true, password2: true 
+  })
 
   React.useEffect(() => {
     if (user && !loadingUser) window.location.href = '/';
   }, [user, loadingUser]);
 
+  const handleChange = (e)=>{
+    const {name, value} = e.target;
+    setRegister((prev)=>{
+      return {...prev, [name]: value}
+    })
+    let errorMessage = validation[name](value);
+    if(name === "password2") errorMessage = validation.password2(value, register.password)
+    console.log(error)
+    setError((prev)=>{
+      return {...prev, ...errorMessage}
+    })
+  }
+
   async function signUp() {
-    if (password !== password2) {
-      return toast({
-        title: "Error",
-        description: "Passwords do not match!",
-        status: "error",
-        duration: 5000,
-        isClosable: true,
-      });
-    }
-    await firebase.auth().createUserWithEmailAndPassword(email, password)
+     let submitable = true;
+     Object.values(error).forEach((err)=>{
+      if(err !== false){
+        submitable = false;
+        return;
+      }
+     })
+     if(submitable){
+    await firebase.auth().createUserWithEmailAndPassword(register.email, register.password)
     .then((u) => { // u.user.uid
       window.location.href = '/';
     })
@@ -58,6 +76,15 @@ export default function RegisterPage() {
         isClosable: true,
       });
     });
+  }else{
+    return toast({
+      title: "Error",
+      description: "Please fill all Fields with Valid Data.",
+      status: "error",
+      duration: 5000,
+      isClosable: true,
+    });
+  }
   }
 
   async function signInWithGoogle() {
@@ -106,7 +133,7 @@ export default function RegisterPage() {
             shadow="base"
             rounded={{ sm: 'lg' }}
           >
-            <RegisterForm email={email} setEmail={setEmail} signUp={signUp} password={password} setPassword={setPassword} password2={password2} setPassword2={setPassword2}/>
+            <RegisterForm email={register.email} change={handleChange} signUp={signUp} password={register.password} password2={register.password2} errorObj={error}/>
             <DividerWithText mt="6">or continue with</DividerWithText>
             <SimpleGrid mt="6" columns={1} spacing="3">
               <Button onClick={signInWithGoogle} color="currentColor" variant="outline">
