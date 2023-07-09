@@ -52,7 +52,7 @@ export default function Profile(props) {
         if (!user) return;
 
         async function checkUserDoc() {
-            const userDatas = await getDoc('users', user.uid);
+            const userDatas = await getDoc('users', uid? uid : user.uid);
             if (!userDatas) {
                 await addDoc('users', {
                     displayName: "",
@@ -66,7 +66,7 @@ export default function Profile(props) {
         checkUserDoc();
 
         async function getPolls() {
-            const userDocs = await getUserDocs('polls', user.uid);
+            const userDocs = await getUserDocs('polls', uid? uid : user.uid);
             setPolls(userDocs);
             // setDisplayName(user.displayName ? user.displayName : "");
             setUserDoc(user)
