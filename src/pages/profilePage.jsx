@@ -66,7 +66,7 @@ export default function Profile(props) {
         checkUserDoc();
 
         async function getPolls() {
-            const userDocs = await getUserDocs('polls', user.uid);
+            const userDocs = await getUserDocs('polls', uid? uid : user.uid);
             setPolls(userDocs);
             // setDisplayName(user.displayName ? user.displayName : "");
             setUserDoc(user)
