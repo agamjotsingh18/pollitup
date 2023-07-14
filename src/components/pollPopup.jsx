@@ -24,6 +24,7 @@ import {
     Text,
     useToast,
 } from "@chakra-ui/react";
+import { useAuth } from '../lib/auth';
 
 export default function PollPopup(props){
     initFirebase();
@@ -36,10 +37,13 @@ export default function PollPopup(props){
     const checkboxes = props.data.selectMultiple;
     const type = props.data.type;
 
+    const { user, loadingUser } = useAuth();
+
+
     function handleClose(){
         props.set(false);
         setOpen(false);
-        props.setVoted(true);
+        // props.setVoted(true);
     }
 
     function handleClick(e){
@@ -52,6 +56,15 @@ export default function PollPopup(props){
     }
 
     async function handleSubmit(){
+        if(!user){
+            return toast({
+                title: "LogIn First",
+                description: "Please LogIn/Register to continue",
+                status: "error",
+                isClosable: true
+            });
+        }
+
         const answer = type === 'multipleChoice' ? formOptions.map(answer => answer.selected) : inputValue;
 
         if ((type === 'multipleChoice' && !answer.includes(true)) || (type === 'text' && inputValue.trim() === '')) {
