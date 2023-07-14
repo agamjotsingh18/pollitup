@@ -39,7 +39,7 @@ export default function PollPopup(props){
     function handleClose(){
         props.set(false);
         setOpen(false);
-        props.setVoted(true);
+        // props.setVoted(true);
     }
 
     function handleClick(e){

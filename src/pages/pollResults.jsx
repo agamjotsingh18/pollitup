@@ -113,7 +113,8 @@ export default function PollResults(){
                 )}
                 <Box p={8} borderWidth="1px" borderRadius="lg">
                     <Heading as="h2" size="md" mb={4} align="center">Responses</Heading>
-                    { voted ? (
+
+                    {/* Responses */}
                         <Box>
                             {poll.type === 'multipleChoice' ?
                                 <Doughnut
@@ -133,9 +134,7 @@ export default function PollResults(){
                                 </Stack>
                             }
                         </Box>
-                    ) : (
-                        <Center>Responses will be visible once you submit your response</Center>
-                    ) }
+
                 </Box>
                 <Box borderWidth="1px" borderRadius="lg" h="40vh">
                     <Map defaultCenter={[poll.location._lat, poll.location._long]} defaultZoom={12} width="100%" height="100%" provider={getProvider}>
