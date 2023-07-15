@@ -32,6 +32,7 @@
         "react-icons": "^4.2.0",
         "react-router-dom": "^5.2.0",
         "react-scripts": "^4.0.3",
+        "react-share": "^4.4.1",
         "react-transition-group": "^4.4.1",
         "web-vitals": "^1.1.1"
     },
