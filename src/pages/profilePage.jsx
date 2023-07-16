@@ -5,8 +5,9 @@ import {
     Box,
     Flex,
     Stack,
+    HStack,
     Heading,
-    Avatar, AvatarBadge, AvatarGroup,
+    Avatar,
     Input,
     Textarea,
     Text,
@@ -22,6 +23,23 @@ import {
     SimpleGrid,
     //UnorderedList
 } from "@chakra-ui/react";
+
+import {
+    FacebookIcon,
+    FacebookShareButton,
+    LinkedinIcon,
+    LinkedinShareButton,
+    PinterestIcon,
+    PinterestShareButton,
+    RedditIcon,
+    RedditShareButton,
+    TelegramIcon,
+    TelegramShareButton,
+    TwitterIcon,
+    TwitterShareButton,
+    WhatsappIcon,
+    WhatsappShareButton,
+  } from "react-share";
 
 import 'firebase/auth';
 import { useAuth } from '../lib/auth';
@@ -46,7 +64,9 @@ export default function Profile(props) {
     const [pfpLink, setPfpLink] = React.useState('');
     const [polls, setPolls] = React.useState([]);
     const toast = useToast()
+    const [OpenShare, setOpenShare] = React.useState(false);
 
+    
     React.useEffect(() => {
         //if (!user && !loadingUser) return window.location.href = '/login';
         if (!user) return;
@@ -126,6 +146,7 @@ export default function Profile(props) {
     }
 
     return (
+        <>
         <Container maxW="container.lg" align="center">
 
             <Modal isOpen={showIconModal} onClose={() => setShowIconModal(false)}>
@@ -143,6 +164,67 @@ export default function Profile(props) {
                         <Button colorScheme="blue" mr={3} onClick={saveData}>
                             Update
                         </Button>
+                    </ModalFooter>
+                </ModalContent>
+            </Modal>
+
+            <Modal isOpen={OpenShare} onClose={() => setOpenShare(false)}>
+                <ModalOverlay />
+                <ModalContent>
+                    <ModalHeader>Share To</ModalHeader>
+                    <ModalCloseButton />
+                    <ModalBody>
+                    <HStack spacing={"16px"}>
+                        <FacebookShareButton
+                        url={`https://pollitup.vercel.app/profile/${user?.uid}`}
+                        quote={'Visit PollItUp'}
+                        hashtag="#pollItUp"
+                        >
+                            <FacebookIcon size={45} round={true} />
+                        </FacebookShareButton>
+                        <WhatsappShareButton
+                        title="pollItUp"
+                        url={`https://pollitup.vercel.app/profile/${user?.uid}`}
+                        >
+                            <WhatsappIcon size={45} round={true} />
+                        </WhatsappShareButton>
+                        <TwitterShareButton
+                        url={`https://pollitup.vercel.app/profile/${user?.uid}`}
+                        >
+                            <TwitterIcon size={45} round={true} />
+                        </TwitterShareButton>
+                        <LinkedinShareButton
+                        title="poll It Up"
+                        url={`https://pollitup.vercel.app/profile/${user?.uid}`}
+                        >
+                            <LinkedinIcon size={45} round={true} />
+                        </LinkedinShareButton>
+                        <TelegramShareButton
+                        url={`https://pollitup.vercel.app/profile/${user?.uid}`}
+                        >
+                            <TelegramIcon size={45} round={true} />
+                        </TelegramShareButton>
+                        <PinterestShareButton
+                        description={`Checkout my profile in pollItUp`}
+                        media={`https://pollitup.vercel.app/profile/${user?.uid}`}
+                        >
+                            <PinterestIcon size={45} round={true} />
+                        </PinterestShareButton>
+                        <RedditShareButton
+                        title="poll It Up"
+                        url={`https://pollitup.vercel.app/profile/${user?.uid}`}
+                        >
+                            <RedditIcon size={45} round={true} />
+                        </RedditShareButton>
+                    </HStack>
+                    </ModalBody>
+
+                    <ModalFooter>
+                    <Container mt={2} mb={5} centerContent >
+                        <Button colorScheme="blue" mr={3} onClick={share}>
+                            copy text to clipboard
+                        </Button>
+                    </Container>
                     </ModalFooter>
                 </ModalContent>
             </Modal>
@@ -180,7 +262,7 @@ export default function Profile(props) {
 
                                 <Button colorScheme="gray" leftIcon={<FontAwesomeIcon icon={faEdit} />} onClick={() => setShowIconModal(true)}>Edit</Button>
                                 {edit && <Button colorScheme="blue" onClick={saveData}>Save</Button>}
-                                <Button colorScheme="gray" variant="solid" onClick={share} leftIcon={<FontAwesomeIcon icon={faShareAlt} />}>Share</Button>
+                                <Button colorScheme="gray" variant="solid" onClick={() => setOpenShare(true) } leftIcon={<FontAwesomeIcon icon={faShareAlt} />}>Share</Button>
 
                             </>
                         }
@@ -197,5 +279,6 @@ export default function Profile(props) {
                 </SimpleGrid>
             </Container>
         </Container>
+        </>
     )
 }

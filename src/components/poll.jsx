@@ -11,13 +11,41 @@ import { useToast } from "@chakra-ui/react";
 import Pollpopup from './pollPopup';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCopy, faCheck } from '@fortawesome/free-solid-svg-icons'
+import {
+    Container,
+    HStack,
+    Modal,
+    ModalOverlay,
+    ModalContent,
+    ModalHeader,
+    ModalFooter,
+    ModalBody,
+    ModalCloseButton,
+} from "@chakra-ui/react";
+import {
+    FacebookIcon,
+    FacebookShareButton,
+    LinkedinIcon,
+    LinkedinShareButton,
+    PinterestIcon,
+    PinterestShareButton,
+    RedditIcon,
+    RedditShareButton,
+    TelegramIcon,
+    TelegramShareButton,
+    TwitterIcon,
+    TwitterShareButton,
+    WhatsappIcon,
+    WhatsappShareButton,
+  } from "react-share";
 
 export default function Poll(props) {
-
+    const shareURL = `pollitup.vercel.app/poll/${props.data.id}`
     const [showModal, setShowModal] = React.useState(false);
     const [votes, setVotes] = React.useState(Math.floor(Math.random() * 5)); //replce with prop
     const [hasVoted, setVoted] = React.useState('');
     const [copyIcon, setCopyIcon] = React.useState(faCopy);
+    const [OpenShare, setOpenShare] = React.useState(false);
 
     const toast = useToast();
 
@@ -82,6 +110,7 @@ export default function Poll(props) {
     }
 
     return (
+        <>
         <Box px={8} py={{ base: 12, lg: 8 }} borderWidth="1px" borderRadius="lg" overflow="hidden">
             <Stack direction="column" spacing={4}>
                 <Flex>
@@ -97,7 +126,7 @@ export default function Poll(props) {
                             <Heading as="h6" size="md">{props.name}</Heading>
                             <Text>{props.description}</Text>
                         </Box>
-                        <Button cursor={"pointer"} colorScheme="whatsapp" rounded={"full"} onClick={() => shareHandler(props.id)} title='Copy Link'>
+                        <Button cursor={"pointer"} colorScheme="whatsapp" rounded={"full"} onClick={() => setOpenShare(true) || console.log("props::", props.data.id)} title='Copy Link'>
                             <FontAwesomeIcon icon={copyIcon} />
                         </Button>
                     </Center>
@@ -110,6 +139,73 @@ export default function Poll(props) {
 
             {showModal && <Pollpopup set={setShowModal} data={props.data} />}
         </Box>
+        <Modal isOpen={OpenShare} onClose={() => setOpenShare(false)}>
+                <ModalOverlay />
+                <ModalContent>
+                    <ModalHeader>Share To</ModalHeader>
+                    <ModalCloseButton />
+                    <ModalBody>
+                    <HStack spacing={"16px"}>
+                        <FacebookShareButton
+                        url={`${shareURL}`}
+                        quote={'Visit PollItUp'}
+                        hashtag="#pollItUp #Polls #checkitout"
+                        >
+                            <FacebookIcon size={45} round={true} />
+                        </FacebookShareButton>
+                        <WhatsappShareButton
+                        title="pollItUp"
+                        url={`${shareURL}`}
+                        >
+                            <WhatsappIcon size={45} round={true} />
+                        </WhatsappShareButton>
+                        <TwitterShareButton
+                        url={`${shareURL}`}
+                        >
+                            <TwitterIcon size={45} round={true} />
+                        </TwitterShareButton>
+
+                        <LinkedinShareButton
+                        title="poll It Up"
+                        url={`${shareURL}`}
+                        >
+                            <LinkedinIcon size={45} round={true} />
+                        </LinkedinShareButton>
+
+                        <TelegramShareButton
+                        url={`${shareURL}`}
+                        >
+                            <TelegramIcon size={45} round={true} />
+                        </TelegramShareButton>
+
+                        <PinterestShareButton
+                        description={`Checkout my profile in pollItUp`}
+                        media={`${shareURL}`}
+                        >
+                            <PinterestIcon size={45} round={true} />
+                        </PinterestShareButton>
+
+                        <RedditShareButton
+                        title="poll It Up"
+                        hashtag="#pollItUp #Polls #checkitout"
+                        url={`${shareURL}`}
+                        >
+                            <RedditIcon size={45} round={true} />
+                        </RedditShareButton>
+
+                    </HStack>
+                    </ModalBody>
+
+                    <ModalFooter>
+                    <Container mt={2} mb={5} centerContent >
+                        <Button colorScheme="blue" mr={3} onClick={() => shareHandler(props.id)}>
+                            copy text to clipboard
+                        </Button>
+                    </Container>
+                    </ModalFooter>
+                </ModalContent>
+            </Modal>
+        </>
     )
 }
 
