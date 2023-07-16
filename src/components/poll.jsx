@@ -198,7 +198,7 @@ export default function Poll(props) {
 
                     <ModalFooter>
                     <Container mt={2} mb={5} centerContent >
-                        <Button colorScheme="blue" mr={3} onClick={() => shareHandler(props.id)}>
+                        <Button colorScheme="blue" mr={3} onClick={() => shareHandler(props.data.id)}>
                             copy text to clipboard
                         </Button>
                     </Container>
