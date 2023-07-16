@@ -7,7 +7,7 @@ function EmailRequestForm(props) {
 	const history = useHistory();
 	function handleSubmit(event) {
 		event.preventDefault();
-		props.handleResetPassword();
+		props.handleResetPassword(event.target.email.value);
 		history.push("/email-sent");
 	}
 		

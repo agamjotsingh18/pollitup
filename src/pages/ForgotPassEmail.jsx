@@ -3,27 +3,44 @@ import React from 'react';
 import initFirebase from '../lib/firebase';
 import firebase from 'firebase/app';
 import 'firebase/auth';
-import { useAuth } from '../lib/auth';
-import { addDoc, getDoc } from '../lib/db';
 
-import { DividerWithText } from '../components/dividerWithText';
-import { FaGoogle } from 'react-icons/fa';
 
 import {
   Container,
   Box,
   Heading,
   Text,
-  Button,
-  SimpleGrid,
   useColorModeValue as mode,
-  VisuallyHidden,
   useToast,
 } from '@chakra-ui/react';
 import EmailRequestForm from '../components/emailRequestForm';
 
+
 function ForgotPassEmail() {
-	function handleResetPassword() {
+  const toast = useToast();
+	function handleResetPassword(email) {
+    initFirebase();
+    const auth = firebase.auth();
+    auth.sendPasswordResetEmail(email).then(function() {
+      // Email sent.
+      toast({
+        title: "Email Sent",
+        description: "Check your email for a link to reset your password.",
+        status: "success",
+        duration: 9000,
+        isClosable: true,
+      })
+    }).catch(function(error) {
+      // An error happened.
+      toast({
+        title: "Error",
+        description: error.message,
+        status: "error",
+        duration: 9000,
+        isClosable: true,
+      })
+      
+    });
 	}
 	return (
 		
