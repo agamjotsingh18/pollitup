@@ -33,44 +33,59 @@ export default function Discover() {
 
     const [markers, setMarkers] = React.useState(null);
     const [resultByPollName, setResultByPollName] = React.useState(null);
-    const [inputQuery, setInputQuery] = React.useState(null);
+    const [inputQuery, setInputQuery] = React.useState('');
     const [selectQuery, setSelectQuery] = React.useState("ByPollName");
-    const [searchResult, setSearchResult] = React.useState(null);
+    const [searchResult, setSearchResult] = React.useState([]);
+    const [post, setPost] = React.useState(null);
+    const [showPopup, setShowPopup] = React.useState(false);
     //const [location, setLocation] = React.useState([]);
     //const toast = useToast();
+    const getProvider = (x, y, z) => `https://cartodb-basemaps-a.global.ssl.fastly.net/light_all/${z}/${x}/${y}.png`;
+
+
 
     React.useEffect(() => {
 
         async function fetchPolls() {
             setMarkers(await getCol("polls"));
         }
-        async function getPollByName() {
-            setResultByPollName(await getByPollName("polls", "t"));
-        }
 
         fetchPolls();
+    },[])
+    
 
-        /*if (navigator.geolocation) { //check if geolocation is available
-            await navigator.geolocation.getCurrentPosition(async function(pos){
-                setLocation([pos.coords.latitude, pos.coords.longitude]);
-            }, 
-            function(error){
-                setLoading(false);
-                toast({
-                    title: "Error",
-                    description: "Location Data in-accessible or denied",
-                    status: "error",
-                    duration: 5000,
-                    isClosable: true
-                })
+    React.useEffect(() => {
+
+        if(inputQuery === ''){
+            setSearchResult([]);
+        }
         
-            })
-        }*/
-    }, []);
+        const Interval = setInterval(() => {
+            if(inputQuery !== '')
+            fetchSearchResults();
+        }, 500)
+        
+        console.log("searchResult", searchResult)
+       return () => {
+           clearInterval(Interval)
+        }
+    }, [inputQuery]);
 
-    const [post, setPost] = React.useState(null);
-    const [showPopup, setShowPopup] = React.useState(false);
-    const getProvider = (x, y, z) => `https://cartodb-basemaps-a.global.ssl.fastly.net/light_all/${z}/${x}/${y}.png`;
+
+    async function fetchSearchResults(){
+        if(inputQuery !== '' && selectQuery !== ''){
+            let results = null;
+            if (selectQuery === "ByPollName") {
+                results = await getByPollName("polls", inputQuery);
+            } else if (selectQuery === "ByQuestionName") {
+                results = await getByQuestion("polls", inputQuery);
+            } else {
+                results = await getByDescription("polls", inputQuery);
+            }
+            setSearchResult(results);
+        }
+    }
+
 
     function handleClick(payload) {
         setPost(payload);
@@ -87,14 +102,6 @@ export default function Discover() {
         
     }
 
-    async function GetSearchResult() {
-        if (inputQuery !== null && selectQuery !== null) {
-            if (selectQuery == "ByPollName") setSearchResult(await getByPollName("polls", inputQuery))
-            else if (selectQuery == "ByQuestionName") setSearchResult(await getByQuestion("polls", inputQuery))
-            else setSearchResult(await getByDescription("polls", inputQuery));
-        }
-    }
-
     
     if (markers) {
         return (
@@ -107,26 +114,18 @@ export default function Discover() {
                         <option value="ByQuestionName">By Question Name</option>
                         <option value="ByDescription">By Description</option>
                     </select>
-                    <InputGroup size='md' width={300}>
+                    <InputGroup size='md' width={250}>
                     <Input value={inputQuery}
                         placeholder='Search the polls' onChange={handleInputChange} />
-                    <InputRightElement width='4.5rem'>
-                        <Button h='2.3rem' size='sm' mr="1" onClick={GetSearchResult}>
-                            Search
-                        </Button>
-                    </InputRightElement>
-                    {/* <Button colorScheme='blue' h='2.3rem' size='md' mr="1" onClick={GetSearchResult}>
-                            Search
-                    </Button> */}
                     </InputGroup>
                 </div>
-                {searchResult != null ? <Container maxW="container.lg" mt={12}>
+                {searchResult.length > 0 && inputQuery !== '' ? <Container maxW="container.lg" mt={12}>
                     <Heading>Search Results</Heading>
                     <SimpleGrid p={8} columns={{ base: 1, md: 2, lg: 4 }} spacing={6}>
                         {searchResult.slice(-8).map(result => <Poll /*pollvoting={true}*/ name={result.name} description={result.description} data={result} flag="discover" />)}
                     </SimpleGrid>
                 </Container> : <> </>}
-                {searchResult === null && inputQuery!== null && <div>No results found</div>}
+                {searchResult.length === 0 ? (inputQuery !== '' && <div>No results found</div>) : null}
 
                 <Box w="90%" h="80vh" borderWidth="1px" borderRadius="lg" overflow="hidden">
                     <Map defaultCenter={[39.0831315, -77.2049467]} defaultZoom={12} width="100%" height="100%" provider={getProvider}>
