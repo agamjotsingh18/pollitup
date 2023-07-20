@@ -1,4 +1,5 @@
 import React from 'react';
+import { useAuth } from '../lib/auth';
 import { Box } from "@chakra-ui/react";
 import { ChevronUpIcon, ChevronDownIcon } from '@chakra-ui/icons';
 import { Text } from "@chakra-ui/react";
@@ -40,6 +41,7 @@ import {
   } from "react-share";
 
 export default function Poll(props) {
+    const { user, loadingUser } = useAuth();
     const shareURL = `pollitup.vercel.app/poll/${props.data.id}`
     const [showModal, setShowModal] = React.useState(false);
     const [votes, setVotes] = React.useState(Math.floor(Math.random() * 5)); //replce with prop
@@ -133,7 +135,8 @@ export default function Poll(props) {
                 </Flex>
                 {(props.flag === "discover") ? <Button colorScheme="green" onClick={() => setShowModal(true)} isFullWidth={true}>Open Poll</Button> :
                     <><Button colorScheme="green" onClick={() => setShowModal(true)} isFullWidth={true}>Open Poll</Button>
-                        <Button colorScheme="red" onClick={() => deleteHandler(props.id)} isFullWidth={true}>Delete Poll</Button>
+                        {user?.uid === props.polls[0].author.id &&  <Button colorScheme="red" onClick={() => deleteHandler(props.id)} isFullWidth={true}>Delete Poll</Button> 
+                    }
                     </>}
             </Stack>
 
