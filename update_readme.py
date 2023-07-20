@@ -40,6 +40,9 @@ new_readme_content = '''\
 - Poll It Up is **PWA optimized**, so you can download it and run it as if it were a native app!
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
+'''
+new_readme_content += '\n[![Contributors](https://img.shields.io/badge/all_contributors-' + str(contributors_count) + '-orange.svg?style=flat-square)](https://github.com/agamjotsingh18/pollitup/graphs/contributors)\n'
+new_readme_content += '''
 [![Contributors](https://img.shields.io/badge/all_contributors-23-orange.svg?style=flat-square)](https://github.com/agamjotsingh18/pollitup/graphs/contributors)
 
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
@@ -176,6 +179,9 @@ See the open issues for a full list of proposed features (and known issues).<br>
 <!-- prettier-ignore-start -->
 <!-- markdownlint-disable -->
   <tr>
+'''
+new_readme_content += "\n".join(contributor_info)
+new_readme_content += '''
   </tr>
   <tr>
     <td align="center"><a href="https://github.com/agamjotsingh18"><img src="https://avatars.githubusercontent.com/u/70067726?v=4" width="100px;" style="border-radius: 50%;" alt="agamjotsingh18"/><br /><sub><b>agamjotsingh18</b></sub></a><br /><a href="https://github.com/agamjotsingh18/pollitup/commits?author=agamjotsingh18" title="Contributions">📖</a></td>
