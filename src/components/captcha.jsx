@@ -83,6 +83,7 @@ const Captcha = ({ message, trackState }) => {
 
   useEffect(() => {
     const myInput = document.getElementById('inputType');
+    const cap = document.getElementById('captcha').value = captcha;
     myInput.onpaste = e => e.preventDefault();
   },[])
 
@@ -96,7 +97,6 @@ const Captcha = ({ message, trackState }) => {
             bgImage={`url(${captchaBg})`}
             bgSize="cover"
             bgPosition="center"
-            value={captcha}
             w="100%"
             type="text"
             id="captcha"
