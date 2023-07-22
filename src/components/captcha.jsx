@@ -33,6 +33,16 @@ const Captcha = ({ message, trackState }) => {
     setUser(user);
 
   }
+
+  const Styles = {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    background: "transparent",
+    height: "100%",
+    width: "100%",
+    zIndex: "10000"
+  }
   const onSubmit = () => {
     var element = document.getElementById("succesBTN");
     var inputData = document.getElementById("inputType");
@@ -72,23 +82,27 @@ const Captcha = ({ message, trackState }) => {
   }
 
   useEffect(() => {
-    document.getElementById('captcha').value = captcha
-  }, []);
+    const myInput = document.getElementById('inputType');
+    const cap = document.getElementById('captcha').value = captcha;
+    myInput.onpaste = e => e.preventDefault();
+  },[])
 
   return (
     <>
       <FormControl>
-        <FormLabel>Captcha</FormLabel>
+        <FormLabel userSelect="none">Captcha</FormLabel>
         <InputGroup>
+        <div style={{position: 'relative', width: '72%'}}>
           <Textarea
             bgImage={`url(${captchaBg})`}
             bgSize="cover"
             bgPosition="center"
-            w="149px"
+            w="100%"
             type="text"
             id="captcha"
-            filter='blur(1.4px)'
+            filter='blur(1.1px)'
             fontSize="md"
+            color="black"
             fontWeight="bold"
             letterSpacing="0.05em"
             pointerEvents="none"
@@ -98,6 +112,8 @@ const Captcha = ({ message, trackState }) => {
             unselectable="on"
             readOnly
           />
+          <div style={Styles}></div>
+          </div>
           <Input
             type="text"
             placeholder='Enter Captcha Here'
