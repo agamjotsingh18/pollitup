@@ -1,11 +1,13 @@
 
 # Poll It Up ~ A community polling app with unlimited potential
 
+<!--
 <p align="center">
   <img src="https://user-images.githubusercontent.com/88102392/239682688-0c5debf5-d414-4916-87d8-e1a710773ae3.png" alt="image">
 </p>
 
 <h1 align="center">Contributions Accepted under GSSoC '23</h1>
+-->
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
 
